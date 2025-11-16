@@ -16,4 +16,5 @@ export default defineNuxtConfig({
     classSuffix: "",
     storageKey: "nuxt-color-mode",
   },
+  plugins: ["~/plugins/iconsax.client.ts"],
 });

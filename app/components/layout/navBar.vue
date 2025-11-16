@@ -37,13 +37,15 @@ import { button } from "#build/ui";
           placeholder="كلمة البحث ..."
           class="flex-1 h-[2.25rem] text-[0.87rem] text-[#596780] ms-5 bg-transparent outline-none"
         />
-        <VsxIcon
-          iconName="SearchNormal1"
-          :size="24"
-          color="#596780"
-          type="linear"
-          class="me-4"
-        />
+        <client-only>
+          <VsxIcon
+            iconName="SearchNormal1"
+            :size="24"
+            color="#596780"
+            type="linear"
+            class="me-4"
+          />
+        </client-only>
       </div>
     </div>
 
@@ -53,7 +55,9 @@ import { button } from "#build/ui";
       <button
         class="bg-[#497D74] w-[9.3rem] h-[3.43rem] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
       >
-        <VsxIcon iconName="Edit2" :size="18" color="#ffffff" type="linear" />
+        <client-only>
+          <VsxIcon iconName="Edit2" :size="18" color="#ffffff" type="linear" />
+        </client-only>
         <p class="text-[0.87rem] text-[#ffffff]">ارسل فتواك</p>
       </button>
 
@@ -61,24 +65,28 @@ import { button } from "#build/ui";
       <button
         class="w-[2.75rem] h-[2.75rem] rounded-full bg-[#ffffff] border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
       >
-        <VsxIcon
-          iconName="ArchiveAdd"
-          :size="24"
-          color="#6DA592"
-          type="linear"
-        />
+        <client-only>
+          <VsxIcon
+            iconName="ArchiveAdd"
+            :size="24"
+            color="#6DA592"
+            type="linear"
+          />
+        </client-only>
       </button>
 
       <!-- notification -->
       <button
         class="w-[2.75rem] h-[2.75rem] rounded-full bg-[#ffffff] border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
       >
-        <VsxIcon
-          iconName="Notification"
-          :size="24"
-          color="#6DA592"
-          type="linear"
-        />
+        <client-only>
+          <VsxIcon
+            iconName="Notification"
+            :size="24"
+            color="#6DA592"
+            type="linear"
+          />
+        </client-only>
       </button>
 
       <!-- create account -->
@@ -90,12 +98,14 @@ import { button } from "#build/ui";
       <button
         class="w-[9.37rem] h-[3rem] bg-[#ffffff] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
       >
-        <VsxIcon
-          iconName="LoginCurve"
-          :size="24"
-          color="#7FB09F"
-          type="linear"
-        />
+        <client-only>
+          <VsxIcon
+            iconName="LoginCurve"
+            :size="24"
+            color="#7FB09F"
+            type="linear"
+          />
+        </client-only>
         <p class="text-[0.87rem] text-[#133349]">تسجيل دخول</p>
       </button>
     </div>
