@@ -5,8 +5,8 @@ import SideBar from "~/components/layout/sideBar.vue";
 </script>
 
 <template>
-  <NavBar />
-  <div class="flex justify-between">
+  <NavBar class="px-10" />
+  <div class="flex justify-center gap-6 mt-4 mb-4 me-5 ms-10">
     <SideBar />
     <slot />
   </div>

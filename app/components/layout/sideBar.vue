@@ -4,6 +4,7 @@ import { ref } from "vue";
 const sideData = ref([
   "الرئيسية",
   "الفتاوي",
+  "بقلم المشرف",
   "دعواتنا",
   "ملفات خاصة",
   "المنهج السلفي",
@@ -24,7 +25,7 @@ const hoveredIndex = ref(null);
 
 <template>
   <aside
-    class="py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] mt-4 mb-4 ms-12 w-[21.5rem] rounded-[1.25rem]"
+    class="py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] w-[29.5rem] rounded-[1.25rem]"
   >
     <ul class="flex flex-col gap-2">
       <li

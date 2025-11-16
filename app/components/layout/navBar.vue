@@ -3,7 +3,7 @@ import { button } from "#build/ui";
 </script>
 
 <template>
-  <div class="bg-[#EFE9D5] w-full py-1 px-12 flex justify-between items-center">
+  <div class="bg-[#EFE9D5] w-full py-1 flex justify-between items-center">
     <!-- right section -->
     <div class="flex justify-center items-center gap-6">
       <!-- logo + title -->

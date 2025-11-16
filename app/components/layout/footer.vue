@@ -12,7 +12,7 @@ const socials = ref([
 
 <template>
   <div
-    class="w-full bg-[#27445D] flex justify-between items-center px-10 py-5.5"
+    class="w-full bg-[#27445D] flex justify-between items-center px-12 py-5.5"
   >
     <span class="text-[#ffffff] text-[0.87rem]"
       >حقوق النشر مكفولة لكل مسلم مع ذكر المصدر و حقوق الطبع محفوظة للموقع ©
@@ -24,7 +24,9 @@ const socials = ref([
         :key="social.name"
         class="bg-[#FBFBFB] w-8 h-8 rounded-full flex justify-center items-center cursor-pointer p-4.5 hover:bg-[#497D74] text-[#A2B8CA] hover:text-[#ffffff]"
       >
-        <FontAwesomeIcon :icon="social.icon" class="text-xl" />
+        <client-only>
+          <FontAwesomeIcon :icon="social.icon" class="text-xl" />
+        </client-only>
       </div>
     </div>
   </div>
