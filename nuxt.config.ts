@@ -10,9 +10,10 @@ export default defineNuxtConfig({
     },
     display: "swap",
   },
-  ui: {
-    theme: {
-      default: "light", // make light mode default
-    },
+  colorMode: {
+    preference: "light",
+    fallback: "light",
+    classSuffix: "",
+    storageKey: "nuxt-color-mode",
   },
 });
