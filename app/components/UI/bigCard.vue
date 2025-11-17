@@ -8,13 +8,20 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  blue: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <template>
   <div class="bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem]">
     <div
-      class="flex justify-between bg-[#EFE9D5] px-3 py-2 rounded-t-[1.25rem]"
+      :class="[
+        'flex justify-between px-3 py-2 rounded-t-[1.25rem]',
+        props.blue ? 'bg-[#ECF4F2]' : 'bg-[#EFE9D5]',
+      ]"
     >
       <div class="flex justify-center items-center gap-2">
         <client-only>
