@@ -4,12 +4,18 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  viewAll: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <template>
-  <div class="bg-[#F9F9F9] border border-[#E9E9E9] rounded-3xl">
-    <div class="flex justify-between bg-[#EFE9D5]">
+  <div class="bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem]">
+    <div
+      class="flex justify-between bg-[#EFE9D5] px-3 py-2 rounded-t-[1.25rem]"
+    >
       <div class="flex justify-center items-center gap-2">
         <client-only>
           <VsxIcon
@@ -24,67 +30,32 @@ const props = defineProps({
         <p class="text-[#062033] text-[1rem]">{{ props.label }}</p>
       </div>
 
-      <div class="flex justify-center items-center">
+      <button
+        v-if="props.viewAll"
+        class="flex justify-center items-center cursor-pointer"
+      >
         <span class="text-[#062033] text-[0.87rem]">شاهد الكل</span>
-        <div class="flex justify-center items-center gap-0">
+        <div class="flex justify-around items-center">
           <client-only>
             <VsxIcon
               iconName="ArrowLeft2"
-              :size="6"
-              color="#062033"
+              :size="8"
+              color="#000000"
               type="linear"
             />
           </client-only>
           <client-only>
             <VsxIcon
               iconName="ArrowLeft2"
-              :size="6"
-              color="#062033"
+              :size="8"
+              color="#000000"
               type="linear"
             />
           </client-only>
         </div>
-      </div>
+      </button>
     </div>
 
-    <div class="flex justify-center items-center">
-      <div class="bg-[#ffffff] border border-[#EDEDED] rounded-3xl">
-        <!-- SLOT CONTENT -->
-        <div class="font-bold text-[1rem] text-[#133349]" name="card-body">
-          الدين الإبراهيمي بين الحقيقة والضلال (196) دعوة إبراهيم صلى الله عليه
-          وسلم أباه إلى التوحيد
-        </div>
-
-        <div class="flex justify-between">
-          <div class="flex justify-center items-center gap-5">
-            <div class="flex justify-center items-center gap-1">
-              <VsxIcon
-                iconName="ArchiveAdd"
-                :size="16"
-                color="#133349"
-                type="linear"
-              />
-              <span class="text-[0.87rem] text-[#133349]">حفظ</span>
-            </div>
-
-            <div class="flex justify-center items-center gap-1">
-              <VsxIcon
-                iconName="Share"
-                :size="16"
-                color="#133349"
-                type="linear"
-              />
-              <span class="text-[0.8rem] text-[#133349]">مشاركة</span>
-            </div>
-          </div>
-
-          <div
-            class="bg-[#FBFBFB] rounded-3xl border border-[#EDEDED] text-[0.87rem] text-[#133349]"
-          >
-            ياسر برهامي
-          </div>
-        </div>
-      </div>
-    </div>
+    <slot />
   </div>
 </template>

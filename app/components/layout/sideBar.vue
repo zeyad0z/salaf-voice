@@ -25,7 +25,7 @@ const hoveredIndex = ref(null);
 
 <template>
   <aside
-    class="py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] w-[29.5rem] rounded-[1.25rem]"
+    class="py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] w-[21.5rem] rounded-[1.25rem]"
   >
     <ul class="flex flex-col gap-2">
       <li

@@ -1,8 +1,51 @@
 <script setup>
 import { ref } from "vue";
 import BigCard from "~/components/UI/bigCard.vue";
+import Card from "~/components/UI/card.vue";
+import BooksCard from "~/components/UI/booksCard.vue";
 
-const items = ref([
+/* ---------------------- Blogs ---------------------- */
+const blogs = ref([
+  {
+    text: "الدين الإبراهيمي بين الحقيقة والضلال (196) دعوة إبراهيم صلى الله عليه وسلم أباه إلى التوحيد",
+    author: "ياسر برهامي",
+  },
+  {
+    text: "الدين الإبراهيمي بين الحقيقة والضلال (196) دعوة إبراهيم صلى الله عليه وسلم",
+    author: "زياد الكيلاني",
+  },
+  {
+    text: "الدين الإبراهيمي بين الحقيقة والضلال (196) دعوة إبراهيم",
+    author: "محمد اشرف",
+  },
+  {
+    text: "الدين الإبراهيمي بين الحقيقة والضلال (196) دعوة إبراهيم صلى الله عليه وسلم",
+    author: "احمد محمود",
+  },
+]);
+
+/* ---------------------- Books (Auto Images Loader) ---------------------- */
+const images = import.meta.glob("~/assets/books/*.{png,jpg,jpeg}", {
+  eager: true,
+  import: "default",
+});
+
+// the texts
+const bookTexts = [
+  "كونوا على الخير أعواناً",
+  "الدين الإبراهيمي بين الحقيقة والضلال",
+  "كونوا على الخير أعواناً",
+  "الدين الإبراهيمي بين الحقيقة",
+];
+
+// merge images + texts
+const books = Object.values(images).map((img, i) => ({
+  img,
+  text: bookTexts[i] || "",
+}));
+
+/* ---------------------- Header Rotating Text ---------------------- */
+const headerItems = ref([
   "ما بين الدنيا والآخرة",
   "منهج السلف",
   "الفتاوى الشرعية",
@@ -12,12 +55,13 @@ const items = ref([
 const currentIndex = ref(0);
 
 const nextItem = () => {
-  currentIndex.value = (currentIndex.value + 1) % items.value.length;
+  currentIndex.value = (currentIndex.value + 1) % headerItems.value.length;
 };
 
 const prevItem = () => {
   currentIndex.value =
-    (currentIndex.value - 1 + items.value.length) % items.value.length;
+    (currentIndex.value - 1 + headerItems.value.length) %
+    headerItems.value.length;
 };
 </script>
 
@@ -41,7 +85,7 @@ const prevItem = () => {
               :key="currentIndex"
               class="text-[#133349] font-bold text-[1rem] block"
             >
-              {{ items[currentIndex] }}
+              {{ headerItems[currentIndex] }}
             </span>
           </transition>
         </client-only>
@@ -73,13 +117,75 @@ const prevItem = () => {
       </div>
     </div>
 
-    <!-- BigCard under it in column -->
-    <BigCard label="zeyad" />
+    <!-- new blogs + books -->
+    <div class="flex gap-5 w-full items-start">
+      <BigCard label="جديد المقالات" viewAll="true" class="w-[67.5%]">
+        <Card :items="blogs" author="true" />
+      </BigCard>
+
+      <BigCard label="الكتب" viewAll="true" class="w-[32.5%]">
+        <BooksCard :items="books" image="true" />
+      </BigCard>
+    </div>
+
+    <!-- new fatwas-->
+    <BigCard label="جديد الفتاوي" viewAll="true" class="w-[66%]">
+      <Card :items="blogs" author="true" />
+    </BigCard>
+
+    <!-- form -->
+    <BigCard label="ارسال فتوي" class="w-[66%]">
+      <form action="" class="m-4 flex flex-col gap-4">
+        <input
+          type="text"
+          class="w-full h-[2.5rem] bg-[#FBFBFB] rounded-3xl px-4 border border-[#EDEDED] text-[#133349]"
+          placeholder="الاسم"
+        />
+        <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+          <input
+            type="text"
+            class="w-full h-[2.5rem] bg-[#FBFBFB] rounded-3xl px-4 border border-[#EDEDED] text-[#133349]"
+            placeholder="البريد الإلكترونى"
+          />
+          <input
+            type="text"
+            class="w-full h-[2.5rem] bg-[#FBFBFB] rounded-3xl px-4 border border-[#EDEDED] text-[#133349]"
+            placeholder="السن"
+          />
+          <input
+            type="text"
+            class="w-full h-[2.5rem] bg-[#FBFBFB] rounded-3xl px-4 border border-[#EDEDED] text-[#133349]"
+            placeholder="البلد"
+          />
+          <input
+            type="text"
+            class="w-full h-[2.5rem] bg-[#FBFBFB] rounded-3xl px-4 border border-[#EDEDED] text-[#133349]"
+            placeholder="موضوع الاستفتاء"
+          />
+        </div>
+        <textarea
+          class="w-full h-[6rem] bg-[#FBFBFB] rounded-3xl px-4 border border-[#EDEDED] text-[#133349] text-[0.87rem]"
+          placeholder="السؤال"
+        ></textarea>
+        <button
+          class="h-[3.5rem] w-fit px-7 bg-[#6B9A8A] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
+        >
+          <client-only>
+            <VsxIcon
+              iconName="Edit2"
+              :size="18"
+              color="#ffffff"
+              type="linear"
+            />
+          </client-only>
+          <p class="text-[0.87rem] text-[#ffffff]">ارسل فتواك</p>
+        </button>
+      </form>
+    </BigCard>
   </div>
 </template>
 
 <style>
-/* Reset button */
 .arrow-btn {
   padding: 0;
   margin: 0;
@@ -95,14 +201,12 @@ const prevItem = () => {
   --icon-color: #133349;
 }
 
-/* Hover background + icon color */
 .arrow-btn:hover {
   background-color: #133349 !important;
   border-radius: 6px;
   --icon-color: #ffffff;
 }
 
-/* Slide transition */
 .slide-vertical-enter-active,
 .slide-vertical-leave-active {
   transition: all 0.25s ease;
