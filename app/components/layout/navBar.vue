@@ -1,6 +1,24 @@
 <script setup>
-import { navigateTo } from "#app";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import AuthLayout from "~/layouts/auth.vue";
+
 const router = useRouter();
+
+// State for showing modal
+const showAuth = ref(false);
+const authMode = ref("login"); // "login" or "signup"
+
+// Functions to open modal
+function openLogin() {
+  authMode.value = "login";
+  showAuth.value = true;
+}
+
+function openSignup() {
+  authMode.value = "signup";
+  showAuth.value = true;
+}
 </script>
 
 <template>
@@ -102,17 +120,17 @@ const router = useRouter();
         </client-only>
       </button>
 
-      <!-- create account -->
+      <!-- Create Account -->
       <button
         class="underline text-[0.87rem] text-[#133349] cursor-pointer"
-        @click="router.push('/signup')"
+        @click="openSignup"
       >
         انشاء حساب جديد
       </button>
 
-      <!-- login -->
+      <!-- Login -->
       <button
-        @click="router.push('/login')"
+        @click="openLogin"
         class="w-[9.37rem] h-[3rem] bg-[#ffffff] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
       >
         <client-only>
@@ -126,5 +144,11 @@ const router = useRouter();
         <p class="text-[0.87rem] text-[#133349]">تسجيل دخول</p>
       </button>
     </div>
+    <!-- Auth Modal -->
+    <AuthLayout
+      v-if="showAuth"
+      :initialMode="authMode"
+      @close="showAuth = false"
+    />
   </div>
 </template>
