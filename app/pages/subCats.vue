@@ -50,8 +50,6 @@ const subCats = ref([
 
 <template>
   <div class="flex flex-col gap-4">
-    <MainHead />
-
     <div class="w-fit flex justify-center items-center gap-4 ps-3">
       <client-only>
         <VsxIcon iconName="Home2" :size="24" color="#497D74" type="linear" />
@@ -69,7 +67,7 @@ const subCats = ref([
       <button
         @click="router.push('/cats')"
         v-for="item in subCats"
-        class="p-6 h-fit bg-[#27445D] text-[1rem] text-[#FFFFFF] font-bold rounded-[10px] flex items-center cursor-pointer hover:bg-[#497D74]  transition-colors duration-200"
+        class="p-6 h-fit bg-[#27445D] text-[1rem] text-[#FFFFFF] font-bold rounded-[10px] flex items-center cursor-pointer hover:bg-[#497D74] transition-colors duration-200"
       >
         {{ item.label }}
       </button>

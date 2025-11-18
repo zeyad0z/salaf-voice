@@ -61,9 +61,6 @@ const readingLibrary = ref([
 
 <template>
   <div class="flex flex-col gap-4 w-full">
-    <!-- head -->
-    <MainHead />
-
     <!-- main -->
     <div class="flex gap-5">
       <!-- right side -->
