@@ -1,5 +1,6 @@
 <script setup>
-import { button } from "#build/ui";
+import { navigateTo } from "#app";
+const router = useRouter();
 </script>
 
 <template>
@@ -25,13 +26,25 @@ import { button } from "#build/ui";
       <div
         class="flex w-[36.8rem] h-[2.7rem] bg-[#FFFFFF] rounded-4xl p-1 items-center"
       >
-        <select
-          name="search category"
-          id=""
-          class="w-[7.3rem] h-[2.25rem] bg-[#497D74] rounded-4xl text-[#ffffff] px-1 text-[0.87rem] cursor-pointer"
-        >
-          <option selected>فتاوي</option>
-        </select>
+        <div class="relative">
+          <select
+            class="w-[7.3rem] h-[2.25rem] bg-[#497D74] rounded-4xl text-[#ffffff] px-3 text-[0.87rem] cursor-pointer appearance-none"
+          >
+            <option selected>فتاوي</option>
+          </select>
+
+          <!-- custom arrow -->
+          <client-only>
+            <VsxIcon
+              iconName="ArrowDown2"
+              :size="14"
+              color="#ffffff"
+              type="linear"
+              class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            />
+          </client-only>
+        </div>
+
         <input
           type="text"
           placeholder="كلمة البحث ..."
@@ -90,12 +103,16 @@ import { button } from "#build/ui";
       </button>
 
       <!-- create account -->
-      <button class="underline text-[0.87rem] text-[#133349] cursor-pointer">
+      <button
+        class="underline text-[0.87rem] text-[#133349] cursor-pointer"
+        @click="router.push('/signup')"
+      >
         انشاء حساب جديد
       </button>
 
       <!-- login -->
       <button
+        @click="router.push('/login')"
         class="w-[9.37rem] h-[3rem] bg-[#ffffff] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
       >
         <client-only>
