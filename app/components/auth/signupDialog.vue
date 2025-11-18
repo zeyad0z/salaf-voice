@@ -24,7 +24,7 @@ function signup() {
           v-model="username"
           type="text"
           placeholder="اسم المستخدم"
-          class="border border-[#E9E9E9] p-2 rounded-[15px] bg-[#F4F4F4] py-[1.3rem] text-[1rem] text-[#2D3748]"
+          class="border border-[#E9E9E9] px-4 rounded-[15px] bg-[#F4F4F4] py-[1.3rem] text-[1rem] text-[#2D3748]"
         />
       </div>
 
@@ -34,7 +34,7 @@ function signup() {
           v-model="password"
           type="password"
           placeholder="كلمة المرور"
-          class="border border-[#E9E9E9] p-2 rounded-[15px] bg-[#F4F4F4] py-[1.3rem] text-[1rem] text-[#2D3748]"
+          class="border border-[#E9E9E9] px-4 rounded-[15px] bg-[#F4F4F4] py-[1.3rem] text-[1rem] text-[#2D3748]"
         />
       </div>
 
@@ -44,7 +44,7 @@ function signup() {
           v-model="password"
           type="password"
           placeholder="تاكيد كلمة المرور"
-          class="border border-[#E9E9E9] p-2 rounded-[15px] bg-[#F4F4F4] py-[1.3rem] text-[1rem] text-[#2D3748]"
+          class="border border-[#E9E9E9] px-4 rounded-[15px] bg-[#F4F4F4] py-[1.3rem] text-[1rem] text-[#2D3748]"
         />
       </div>
     </div>

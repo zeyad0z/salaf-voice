@@ -39,27 +39,11 @@ const props = defineProps({
 
       <button
         v-if="props.viewAll"
-        class="flex justify-center items-center cursor-pointer"
+        class="flex justify-center items-center gap-1 cursor-pointer"
       >
         <span class="text-[#062033] text-[0.87rem]">شاهد الكل</span>
-        <div class="flex justify-around items-center">
-          <client-only>
-            <VsxIcon
-              iconName="ArrowLeft2"
-              :size="8"
-              color="#000000"
-              type="linear"
-            />
-          </client-only>
-          <client-only>
-            <VsxIcon
-              iconName="ArrowLeft2"
-              :size="8"
-              color="#000000"
-              type="linear"
-            />
-          </client-only>
-        </div>
+
+        <p class="text-[1rem] text-[#062033]">»</p>
       </button>
     </div>
 

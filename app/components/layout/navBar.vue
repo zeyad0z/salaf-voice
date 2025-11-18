@@ -28,6 +28,7 @@ function openSignup() {
       <!-- logo + title -->
       <div class="flex gap-1.5">
         <img
+          @click="router.push('/')"
           src="../../assets/logo 2.svg"
           alt="logo"
           class="w-[2.87rem] h-[4.93rem]"
@@ -46,7 +47,7 @@ function openSignup() {
       >
         <div class="relative">
           <select
-            class="w-[7.3rem] h-[2.25rem] bg-[#497D74] rounded-4xl text-[#ffffff] px-3 text-[0.87rem] cursor-pointer appearance-none"
+            class="w-[7.3rem] h-[2.25rem] bg-[#497D74] hover:bg-[#6B9A8A] rounded-4xl text-[#ffffff] px-3 text-[0.87rem] cursor-pointer appearance-none transition-all duration-200"
           >
             <option selected>فتاوي</option>
           </select>
@@ -84,7 +85,7 @@ function openSignup() {
     <div class="flex justify-center items-center gap-3.5">
       <!-- send fatwa -->
       <button
-        class="bg-[#497D74] w-[9.3rem] h-[3.43rem] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
+        class="bg-[#497D74] hover:bg-[#6B9A8A] w-[9.3rem] h-[3.43rem] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
       >
         <client-only>
           <VsxIcon iconName="Edit2" :size="18" color="#ffffff" type="linear" />
@@ -122,7 +123,7 @@ function openSignup() {
 
       <!-- Create Account -->
       <button
-        class="underline text-[0.87rem] text-[#133349] cursor-pointer"
+        class="underline text-[0.87rem] text-[#133349] cursor-pointer hover:text-[#6B9A8A] transition-all duration-200"
         @click="openSignup"
       >
         انشاء حساب جديد
@@ -131,7 +132,7 @@ function openSignup() {
       <!-- Login -->
       <button
         @click="openLogin"
-        class="w-[9.37rem] h-[3rem] bg-[#ffffff] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer"
+        class="w-[9.37rem] h-[3rem] bg-[#ffffff] hover:bg-[#E5EEE7] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
       >
         <client-only>
           <VsxIcon
