@@ -3,8 +3,6 @@ import { ref } from "vue";
 import BigCard from "~/components/UI/bigCard.vue";
 import Card from "~/components/UI/card.vue";
 import BooksCard from "~/components/UI/booksCard.vue";
-import MainHead from "~/components/UI/mainHead.vue";
-
 /* ---------------------- Blogs ---------------------- */
 const blogs = ref([
   {
@@ -25,25 +23,25 @@ const blogs = ref([
   },
 ]);
 
-/* ---------------------- Books (Auto Images Loader) ---------------------- */
-const images = import.meta.glob("~/assets/books/*.{png,jpg,jpeg}", {
-  eager: true,
-  import: "default",
-});
-
-// the texts
-const bookTexts = [
-  "كونوا على الخير أعواناً",
-  "الدين الإبراهيمي بين الحقيقة والضلال",
-  "كونوا على الخير أعواناً",
-  "الدين الإبراهيمي بين الحقيقة",
+// the books
+const books = [
+  {
+    text: "كونوا على الخير أعواناً",
+    img: "/images/books/ea52f9a10abc4b73f29c44b7ed6ee1e3f5b40fe6.png",
+  },
+  {
+    text: "الدين الإبراهيمي بين الحقيقة والضلال",
+    img: "/images/books/5f49c796165c506ec0b5f0ed5f8d14a133155e5b.png",
+  },
+  {
+    text: "كونوا على الخير أعواناً",
+    img: "/images/books/821211867e8aef18a32b44ad814c15e504c7f15a.png",
+  },
+  {
+    text: "الدين الإبراهيمي بين الحقيقة",
+    img: "/images/books/252a8c089a0a87a8184feed10013e9ad3dd1b8de.png",
+  },
 ];
-
-// merge images + texts
-const books = Object.values(images).map((img, i) => ({
-  img,
-  text: bookTexts[i] || "",
-}));
 
 /* ---------------------- reading library ---------------------- */
 const readingLibrary = ref([
@@ -132,12 +130,12 @@ const readingLibrary = ref([
         <!-- images -->
         <div class="flex gap-4 mb-2">
           <img
-            src="../assets/right.png"
+            src="/images/right.png"
             alt="book image"
             class="w-[165px] h-[165px] object-cover rounded-2xl"
           />
           <img
-            src="../assets/left.png"
+            src="/images/left.png"
             alt="book image"
             class="w-[165px] h-[165px] object-cover rounded-2xl"
           />

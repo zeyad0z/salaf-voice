@@ -29,7 +29,7 @@ function openSignup() {
       <div class="flex gap-1.5">
         <img
           @click="router.push('/')"
-          src="../../assets/logo 2.svg"
+          src="/images/logo.svg"
           alt="logo"
           class="w-[2.87rem] h-[4.93rem]"
         />

@@ -1,74 +1,17 @@
 <script setup>
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import DefaultImage from "~/components/UI/defaultImage.vue";
+import { useCatsStore } from "~/stores/cats";
+import { useSubCatsStore } from "~/stores/subCats";
 
 const router = useRouter();
-const cats = ref([
-  {
-    image: "/images/books/252a8c089a0a87a8184feed10013e9ad3dd1b8de.png",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "/images/books/5f49c796165c506ec0b5f0ed5f8d14a133155e5b.png",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "/images/books/821211867e8aef18a32b44ad814c15e504c7f15a.png",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "/images/books/ea52f9a10abc4b73f29c44b7ed6ee1e3f5b40fe6.png",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "/images/left.png",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "./images/right.png",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-  {
-    image: "",
-    label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
-    author: "محمد بن عبد الوهاب",
-    date: "2024/12/25",
-    nViews: 22114,
-  },
-]);
+const cats = useCatsStore();
+const subCats = useSubCatsStore();
+
+const selectCat = (item) => {
+  cats.setSelectedCat(item);
+  router.push("/blog");
+};
 </script>
 
 <template>
@@ -82,7 +25,9 @@ const cats = ref([
         <p class="text-[1rem] text-[#B8C2CA]">»</p>
         <p class="text-[1rem] text-[#B8C2CA]">الفتاوي</p>
         <p class="text-[1rem] text-[#497D74]">»</p>
-        <p class="text-[1rem] text-[#497D74]">فتاوي متنوعة</p>
+        <p class="text-[1rem] text-[#497D74]">
+          {{ subCats.selectedSubCat?.label }}
+        </p>
       </div>
     </div>
 
@@ -90,8 +35,8 @@ const cats = ref([
       class="w-full bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] p-4 grid grid-cols-3 gap-x-5 gap-y-4"
     >
       <button
-        @click="router.push('/blog')"
-        v-for="item in cats"
+        @click="selectCat(item)"
+        v-for="item in cats.cats"
         class="p-2 h-fit bg-[#F9F9F9] hover:bg-[#E9E9E9] border border-[#E9E9E9] rounded-[20px] flex flex-col cursor-pointer transition-colors duration-200"
       >
         <div class="flex flex-col gap-2.5 items-center justify-center">
