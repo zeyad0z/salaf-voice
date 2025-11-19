@@ -1,32 +1,32 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useSideBarStore } from "~/stores/sideBar";
 
 const router = useRouter();
 const route = useRoute();
-
-// بيانات الـ sidebar
-const sideData = ref([
-  { label: "الرئيسية", route: "/" },
-  { label: "الفتاوي", route: "/subCats" },
-  { label: "بقلم المشرف", route: "/cats" },
-  { label: "دعواتنا", route: "/cats" },
-  { label: "ملفات خاصة", route: "/cats" },
-  { label: "المنهج السلفي", route: "/cats" },
-  { label: "قضايا معاصرة", route: "/cats" },
-  { label: "دليل طلب العلم", route: "/cats" },
-  { label: "الفتاوي", route: "/cats" },
-  { label: "المكتبة المقروءة", route: "/cats" },
-  { label: "مذاهب فكرية", route: "/cats" },
-  { label: "التزكية", route: "/cats" },
-  { label: "السيرة والتاريخ", route: "/cats" },
-  { label: "مع الدعاة", route: "/cats" },
-  { label: "المرأة والاسرة", route: "/cats" },
-  { label: "شبابنا", route: "/cats" },
-]);
-
-// لتتبع العنصر اللي عليه hover
+const sideData = useSideBarStore();
 const hoveredIndex = ref(null);
+
+// Initialize selected item on first render
+const updateSelected = () => {
+  const current = sideData.sideBar.find((item) => item.route === route.path);
+  if (current) sideData.selectedSideBarId = current.id;
+};
+
+onMounted(() => updateSelected());
+
+// Watch for route changes to update selected
+watch(
+  () => route.path,
+  () => updateSelected()
+);
+
+// Click handler
+const selectItem = (item) => {
+  sideData.setSelectedSideBar(item);
+  router.push(item.route);
+};
 </script>
 
 <template>
@@ -35,36 +35,45 @@ const hoveredIndex = ref(null);
   >
     <ul class="flex flex-col gap-2">
       <li
-  v-for="(item, index) in sideData"
-  :key="index"
-  @mouseenter="hoveredIndex = index"
-  @mouseleave="hoveredIndex = null"
-  @click="router.push(item.route)"
-  class="flex gap-2 items-center text-[1rem] px-3 py-3.5 rounded-[1.25rem] cursor-pointer border transition-all duration-200"
-  :class="{
-    'bg-[#27445D] border-transparent': route.path === item.route || hoveredIndex === index,
-    'bg-[#F9F9F9] border-[#E9E9E9]': route.path !== item.route && hoveredIndex !== index
-  }"
->
-  <!-- Icon -->
-  <client-only>
-    <VsxIcon
-      iconName="ArchiveBook"
-      type="linear"
-      :size="32"
-      :color="route.path === item.route || hoveredIndex === index ? '#ffffff' : '#133349'"
-    />
-  </client-only>
+        v-for="(item, index) in sideData.sideBar"
+        :key="item.id"
+        @mouseenter="hoveredIndex = index"
+        @mouseleave="hoveredIndex = null"
+        @click="selectItem(item)"
+        class="flex gap-2 items-center text-[1rem] px-3 py-3.5 rounded-[1.25rem] cursor-pointer border transition-all duration-200"
+        :class="{
+          'bg-[#27445D] border-transparent':
+            sideData.selectedSideBarId === item.id || hoveredIndex === index,
+          'bg-[#F9F9F9] border-[#E9E9E9]':
+            sideData.selectedSideBarId !== item.id && hoveredIndex !== index,
+        }"
+      >
+        <!-- Icon -->
+        <client-only>
+          <VsxIcon
+            iconName="ArchiveBook"
+            type="linear"
+            :size="32"
+            :color="
+              sideData.selectedSideBarId === item.id || hoveredIndex === index
+                ? '#ffffff'
+                : '#133349'
+            "
+          />
+        </client-only>
 
-  <!-- Text -->
-  <span
-    class="transition-colors duration-200"
-    :class="route.path === item.route || hoveredIndex === index ? 'text-white' : 'text-[#133349]'"
-  >
-    {{ item.label }}
-  </span>
-</li>
-
+        <!-- Text -->
+        <span
+          class="transition-colors duration-200"
+          :class="
+            sideData.selectedSideBarId === item.id || hoveredIndex === index
+              ? 'text-white'
+              : 'text-[#133349]'
+          "
+        >
+          {{ item.label }}
+        </span>
+      </li>
     </ul>
   </aside>
 </template>
