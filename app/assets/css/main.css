@@ -5,6 +5,13 @@
   font-family: "Almarai", sans-serif;
 }
 
+.article-font,
+.article-font * {
+  font-family: "Arial", sans-serif !important;
+  font-size: 1.375rem !important;
+  line-height: 2.5 !important;
+}
+
 @layer base {
   :root {
     --bg-main: #ffffff;
