@@ -30,10 +30,12 @@ const pages = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center gap-2 mt-6 select-none">
+  <div
+    class="flex items-center gap-2 py-3 px-10 rounded-2xl select-none bg-[#EFEFEF]"
+  >
     <!-- Prev -->
     <button
-      class="px-3 py-1 rounded-lg border border-gray-300 bg-white text-gray-600 disabled:opacity-40"
+      class="px-4 py-1 rounded-lg border border-[#497D74] bg-white text-[#497D74] hover:bg-[#E5EEE7] treansition-all duration-200 cursor-pointer"
       :disabled="modelValue === 1"
       @click="goTo(modelValue - 1)"
     >
@@ -45,11 +47,11 @@ const pages = computed(() => {
       v-for="p in pages"
       :key="p"
       @click="goTo(p)"
-      class="px-4 py-1 rounded-lg border"
+      class="px-4 py-1 rounded-lg border cursor-pointer transition-all duration-200"
       :class="
         p === modelValue
-          ? 'bg-[#497D74] text-white border-[#497D74]'
-          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+          ? 'bg-[#497D74] text-white border border-[#E5EEE7]'
+          : 'bg-white text-[#497D74] border-[#497D74] hover:bg-[#E5EEE7]'
       "
     >
       {{ p }}
@@ -57,7 +59,7 @@ const pages = computed(() => {
 
     <!-- Next -->
     <button
-      class="px-3 py-1 rounded-lg border border-gray-300 bg-white text-gray-600 disabled:opacity-40"
+      class="px-5 py-1 rounded-lg border border-[#497D74] bg-white text-[#497D74] hover:bg-[#E5EEE7] treansition-all duration-200 cursor-pointer"
       :disabled="modelValue === totalPages"
       @click="goTo(modelValue + 1)"
     >

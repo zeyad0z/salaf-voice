@@ -5,6 +5,10 @@ import DefaultImage from "~/components/UI/defaultImage.vue";
 
 const cats = useCatsStore();
 const subCats = useSubCatsStore();
+const selectCat = (cat) => {
+  cats.setSelectedCat(cat);
+  router.push("/blog");
+};
 </script>
 
 <template>
@@ -485,8 +489,11 @@ const subCats = useSubCatsStore();
       </span>
     </div>
 
-    <div class="felx flex-col justify-center items-center">
-      <p class="text-[1rem] font-bold text-[#133349] ">مواد ذات صلة</p>
+    <div
+      v-if="cats.selectedCat?.relatedBlogs"
+      class="felx flex-col justify-center items-center"
+    >
+      <p class="text-[1rem] font-bold text-[#133349]">مواد ذات صلة</p>
 
       <div class="py-3 grid grid-cols-3 gap-x-5 gap-y-4">
         <button

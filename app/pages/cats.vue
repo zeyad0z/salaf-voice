@@ -3,6 +3,8 @@ import { useRouter } from "vue-router";
 import DefaultImage from "~/components/UI/defaultImage.vue";
 import { useCatsStore } from "~/stores/cats";
 import { useSubCatsStore } from "~/stores/subCats";
+import { ref, computed } from "vue";
+import Pagination from "~/components/UI/pagination.vue";
 
 const router = useRouter();
 const cats = useCatsStore();
@@ -12,6 +14,18 @@ const selectCat = (item) => {
   cats.setSelectedCat(item);
   router.push("/blog");
 };
+
+const currentPage = ref(1);
+const itemsPerPage = 9; // عدد العناصر لكل صفحة
+
+// حساب العناصر المرئية حسب الصفحة
+const paginatedCats = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return cats.cats.slice(start, end);
+});
+
+const totalPages = computed(() => Math.ceil(cats.cats.length / itemsPerPage));
 </script>
 
 <template>
@@ -36,7 +50,7 @@ const selectCat = (item) => {
     >
       <button
         @click="selectCat(item)"
-        v-for="item in cats.cats"
+        v-for="item in paginatedCats"
         class="p-2 h-fit bg-[#F9F9F9] hover:bg-[#E9E9E9] border border-[#E9E9E9] rounded-[20px] flex flex-col cursor-pointer transition-colors duration-200"
       >
         <div class="flex flex-col gap-2.5 items-center justify-center">
@@ -91,6 +105,10 @@ const selectCat = (item) => {
           </div>
         </div>
       </button>
+    </div>
+    <!-- Pagination -->
+    <div class="flex justify-center">
+      <Pagination v-model="currentPage" :total-pages="totalPages" />
     </div>
   </div>
 </template>
