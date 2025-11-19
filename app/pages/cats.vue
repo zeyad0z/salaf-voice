@@ -1,67 +1,68 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import DefaultImage from "~/components/UI/defaultImage.vue";
 
 const router = useRouter();
 const cats = ref([
   {
-    image: "/images/aqeedah.png",
+    image: "/images/books/252a8c089a0a87a8184feed10013e9ad3dd1b8de.png",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "/images/books/5f49c796165c506ec0b5f0ed5f8d14a133155e5b.png",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "/images/books/821211867e8aef18a32b44ad814c15e504c7f15a.png",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "/images/books/ea52f9a10abc4b73f29c44b7ed6ee1e3f5b40fe6.png",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "/images/left.png",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "./images/right.png",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
     nViews: 22114,
   },
   {
-    image: "/images/aqeedah.png",
+    image: "",
     label: "شبهات حول الحكم بغير ما أنزل الله والرد عليها",
     author: "محمد بن عبد الوهاب",
     date: "2024/12/25",
@@ -86,7 +87,7 @@ const cats = ref([
     </div>
 
     <div
-      class="w-full bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] p-4 grid grid-cols-3 gap-5"
+      class="w-full bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] p-4 grid grid-cols-3 gap-x-5 gap-y-4"
     >
       <button
         @click="router.push('/blog')"
@@ -95,15 +96,17 @@ const cats = ref([
       >
         <div class="flex flex-col gap-2.5 items-center justify-center">
           <img
-            src="../assets/left.png"
+            v-if="item.image"
+            :src="item.image"
             class="rounded-[20px] w-full h-[191px] object-fill"
           />
+          <DefaultImage v-else />
           <p class="text-[1rem] text-[#27445D] font-bold">{{ item.label }}</p>
         </div>
 
-        <hr class="w-full border-[#E9E9E9] my-2" />
+        <hr class="w-full border-[#dbd7d7] my-2" />
 
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2.5">
           <div class="flex flex-start items-center gap-1">
             <client-only>
               <VsxIcon
