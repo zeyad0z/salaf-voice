@@ -1,4 +1,4 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { config, library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faFacebook,
@@ -6,9 +6,14 @@ import {
   faTwitter,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
-library.add(faFacebook, faInstagram, faTwitter, faTiktok);
+config.autoAddCss = false;
+
+library.add(faFacebook, faInstagram, faTwitter, faTiktok, faBars, faXmark);
 
 export default defineNuxtPlugin((nuxtApp) => {
+  // 🟢 مهم: PascalCase
   nuxtApp.vueApp.component("FontAwesomeIcon", FontAwesomeIcon);
 });

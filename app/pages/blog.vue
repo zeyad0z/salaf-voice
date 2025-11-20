@@ -2,44 +2,55 @@
 import { useCatsStore } from "~/stores/cats";
 import { useSubCatsStore } from "~/stores/subCats";
 import DefaultImage from "~/components/UI/defaultImage.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const cats = useCatsStore();
 const subCats = useSubCatsStore();
+
 const selectCat = (cat) => {
   cats.setSelectedCat(cat);
-  router.push("/blog");
+  router.push("/blog").then(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 };
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <div class="w-fit flex justify-center items-center gap-4 ps-3">
+  <div class="blog-page flex flex-col gap-4">
+    <!-- breadcrumb -->
+    <div class="breadcrumb w-fit flex justify-center items-center gap-4 ps-3">
       <client-only>
         <VsxIcon iconName="Home2" :size="24" color="#497D74" type="linear" />
       </client-only>
 
-      <div class="flex gap-2 justify-center items-center">
-        <p class="text-[1rem] text-[#B8C2CA]">»</p>
-        <p class="text-[1rem] text-[#B8C2CA]">الفتاوي</p>
-        <p class="text-[1rem] text-[#B8C2CA]">»</p>
-        <p class="text-[1rem] text-[#B8C2CA]">
+      <div
+        class="breadcrumb-path flex flex-wrap gap-2 justify-center items-center"
+      >
+        <p class="breadcrumb-text text-[#B8C2CA]">»</p>
+        <p class="breadcrumb-text text-[#B8C2CA]">الفتاوي</p>
+        <p class="breadcrumb-text text-[#B8C2CA]">»</p>
+        <p class="breadcrumb-text text-[#B8C2CA]">
           {{ subCats.selectedSubCat?.label }}
         </p>
-        <p class="text-[1rem] text-[#497D74]">»</p>
-        <p class="text-[1rem] text-[#497D74]">{{ cats.selectedCat?.label }}</p>
+        <p class="breadcrumb-text text-[#497D74]">»</p>
+        <p class="breadcrumb-text text-[#497D74]">
+          {{ cats.selectedCat?.label }}
+        </p>
       </div>
     </div>
 
+    <!-- header bar -->
     <div
-      class="w-full bg-[#EFE9D5] border border-[#E9E9E9] rounded-[1.25rem] flex justify-between items-center py-4.5 ps-10 pe-4 mb-2"
+      class="blog-header w-full bg-[#EFE9D5] border border-[#E9E9E9] rounded-[1.25rem] flex flex-wrap gap-3 md:gap-0 md:flex-nowrap justify-between items-center py-4.5 ps-4 md:ps-10 pe-4 mb-2"
     >
-      <p class="text-[1.12rem] text-[#27445D] font-bold">
+      <p class="blog-title text-[1.12rem] text-[#27445D] font-bold">
         {{ cats.selectedCat?.label }}
       </p>
 
-      <div class="flex gap-2.5">
+      <div class="blog-actions flex gap-2.5">
         <button
-          class="rounded-[0.5rem] border border-[#E9E9E9] px-6 py-3.5 bg-[#27445D] hover:bg-[#275379] cursor-pointer flex gap-1 justify-center items-center transition-all duration-200"
+          class="rounded-[0.5rem] border border-[#E9E9E9] px-5 md:px-6 py-2.5 md:py-3.5 bg-[#27445D] hover:bg-[#275379] cursor-pointer flex gap-1 justify-center items-center transition-all duration-200"
         >
           <client-only>
             <VsxIcon
@@ -52,7 +63,7 @@ const selectCat = (cat) => {
           <p class="text-[0.87rem] text-[#FFFFFF] font-light">حفظ</p>
         </button>
         <button
-          class="rounded-[0.5rem] border border-[#E9E9E9] px-6 py-3.5 bg-[#229342] hover:bg-[#40a85e] cursor-pointer flex gap-1 justify-center items-center transition-all duration-200"
+          class="rounded-[0.5rem] border border-[#E9E9E9] px-5 md:px-6 py-2.5 md:py-3.5 bg-[#229342] hover:bg-[#40a85e] cursor-pointer flex gap-1 justify-center items-center transition-all duration-200"
         >
           <client-only>
             <VsxIcon
@@ -67,8 +78,9 @@ const selectCat = (cat) => {
       </div>
     </div>
 
+    <!-- article content -->
     <div
-      class="bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] px-5 py-2 mb-2"
+      class="blog-article bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] px-4 md:px-5 py-2 mb-2"
     >
       <span class="article-font">
         <div id="FatwaA" class="row">
@@ -489,34 +501,39 @@ const selectCat = (cat) => {
       </span>
     </div>
 
+    <!-- related blogs -->
     <div
       v-if="cats.selectedCat?.relatedBlogs"
-      class="felx flex-col justify-center items-center"
+      class="related-section flex flex-col justify-center items-start"
     >
-      <p class="text-[1rem] font-bold text-[#133349]">مواد ذات صلة</p>
+      <p class="text-[1rem] font-bold text-[#133349] mb-1.5">مواد ذات صلة</p>
 
-      <div class="py-3 grid grid-cols-3 gap-x-5 gap-y-4">
+      <div
+        class="related-grid w-full py-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-x-5 lg:gap-y-4"
+      >
         <button
-          @click="selectCat(item)"
           v-for="item in cats.selectedCat?.relatedBlogs"
-          class="p-2 h-fit bg-[#F9F9F9] hover:bg-[#E9E9E9] border border-[#E9E9E9] rounded-[20px] flex flex-col cursor-pointer transition-colors duration-200"
+          :key="item.id || item.label"
+          @click="selectCat(item)"
+          class="related-card p-2 h-fit bg-[#F9F9F9] hover:bg-[#E9E9E9] border border-[#E9E9E9] rounded-[20px] flex flex-col cursor-pointer transition-colors duration-200"
         >
           <div class="flex flex-col gap-2.5 items-center justify-center">
             <img
               v-if="item.image"
               :src="item.image"
-              class="rounded-[20px] w-full h-[191px] object-fill"
+              class="related-image rounded-[20px] w-full h-[191px] object-cover"
             />
             <DefaultImage v-else />
-            <p class="text-[1rem] text-[#27445D] font-bold">
+
+            <p class="related-title text-[1rem] text-[#27445D] font-bold">
               {{ item.label }}
             </p>
           </div>
 
           <hr class="w-full border-[#dbd7d7] my-2" />
 
-          <div class="flex flex-col gap-2.5">
-            <div class="flex flex-start items-center gap-1">
+          <div class="flex flex-col gap-2.5 w-full">
+            <div class="flex items-center gap-1">
               <client-only>
                 <VsxIcon
                   iconName="Edit2"
@@ -525,11 +542,13 @@ const selectCat = (cat) => {
                   type="linear"
                 />
               </client-only>
-              <p class="text-[0.87rem] text-[#313436]">{{ item.author }}</p>
+              <p class="related-meta text-[0.87rem] text-[#313436]">
+                {{ item.author }}
+              </p>
             </div>
 
-            <div class="flex gap-5">
-              <div class="flex flex-start items-center gap-1">
+            <div class="flex flex-wrap gap-4">
+              <div class="flex items-center gap-1">
                 <client-only>
                   <VsxIcon
                     iconName="Note1"
@@ -538,10 +557,12 @@ const selectCat = (cat) => {
                     type="linear"
                   />
                 </client-only>
-                <p class="text-[0.87rem] text-[#313436]">{{ item.date }}</p>
+                <p class="related-meta text-[0.87rem] text-[#313436]">
+                  {{ item.date }}
+                </p>
               </div>
 
-              <div class="flex flex-start items-center gap-1">
+              <div class="flex items-center gap-1">
                 <client-only>
                   <VsxIcon
                     iconName="Eye"
@@ -550,7 +571,9 @@ const selectCat = (cat) => {
                     type="linear"
                   />
                 </client-only>
-                <p class="text-[0.87rem] text-[#313436]">{{ item.nViews }}</p>
+                <p class="related-meta text-[0.87rem] text-[#313436]">
+                  {{ item.nViews }}
+                </p>
               </div>
             </div>
           </div>
@@ -559,3 +582,125 @@ const selectCat = (cat) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+/* تظبيط بسيط للهيدر على الشاشات الأصغر */
+@media (max-width: 1024px) {
+  .blog-header {
+    padding-inline: 1rem;
+  }
+
+  .blog-title {
+    font-size: 1.05rem;
+  }
+
+  .blog-actions button {
+    padding-inline: 1rem;
+    padding-block: 0.6rem;
+  }
+}
+
+/* محتوى المقال على الموبايل */
+@media (max-width: 640px) {
+  .blog-article {
+    padding-inline: 0.85rem;
+    padding-block: 0.75rem;
+  }
+}
+
+/* ريسبونسيف لجزء مواد ذات صلة ليطابق ستايل كروت الـ cats */
+@media (max-width: 1024px) {
+  .related-card {
+    padding-inline: 0.6rem;
+    padding-block: 0.85rem;
+  }
+
+  .related-image {
+    height: 170px;
+  }
+
+  .related-title {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .related-meta {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .related-grid {
+    gap: 0.9rem;
+  }
+
+  .related-card {
+    padding-inline: 0.55rem;
+    padding-block: 0.8rem;
+  }
+
+  .related-image {
+    height: 150px;
+  }
+
+  .related-title {
+    font-size: 0.9rem;
+  }
+
+  .related-meta {
+    font-size: 0.8rem;
+  }
+}
+
+/* الديفولت — ديسكتوب */
+.breadcrumb-text {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+/* تابلت */
+@media (max-width: 1024px) {
+  .breadcrumb-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* موبايل كبير */
+@media (max-width: 768px) {
+  .breadcrumb {
+    gap: 0.35rem;
+  }
+
+  .breadcrumb-path {
+    gap: 0.2rem;
+  }
+
+  .breadcrumb-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* موبايل صغير جداً */
+@media (max-width: 480px) {
+  .breadcrumb {
+    gap: 0.2rem;
+    padding-inline-start: 0.2rem;
+  }
+
+  .breadcrumb-path {
+    gap: 0.15rem;
+  }
+
+  .breadcrumb-text {
+    font-size: 0.65rem; /* صغير بس واضح ومقروء */
+    white-space: nowrap;
+  }
+}
+
+/* أصغر شاشات (<360px) */
+@media (max-width: 360px) {
+  .breadcrumb-text {
+    font-size: 0.58rem;
+  }
+}
+</style>

@@ -8,7 +8,9 @@ const route = useRoute();
 const sideData = useSideBarStore();
 const hoveredIndex = ref(null);
 
-// Initialize selected item on first render
+// علشان نقدر نبلّغ البيرنت إن فيه اختيار حصل
+const emit = defineEmits(["itemSelected"]);
+
 const updateSelected = () => {
   const current = sideData.sideBar.find((item) => item.route === route.path);
   if (current) sideData.selectedSideBarId = current.id;
@@ -16,22 +18,21 @@ const updateSelected = () => {
 
 onMounted(() => updateSelected());
 
-// Watch for route changes to update selected
 watch(
   () => route.path,
   () => updateSelected()
 );
 
-// Click handler
 const selectItem = (item) => {
   sideData.setSelectedSideBar(item);
   router.push(item.route);
+  emit("itemSelected", item); // 🟢 ده اللي البيرنت هيستقبله في الموبايل
 };
 </script>
 
 <template>
   <aside
-    class="py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] w-[21.5rem] rounded-[1.25rem]"
+    class="sidebar-container py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] rounded-[1.25rem] w-full lg:w-[21.5rem] lg:flex-shrink-0"
   >
     <ul class="flex flex-col gap-2">
       <li
@@ -40,7 +41,7 @@ const selectItem = (item) => {
         @mouseenter="hoveredIndex = index"
         @mouseleave="hoveredIndex = null"
         @click="selectItem(item)"
-        class="flex gap-2 items-center text-[1rem] px-3 py-3.5 rounded-[1.25rem] cursor-pointer border transition-all duration-200"
+        class="sidebar-item flex gap-2 items-center text-[1rem] px-3 py-3.5 rounded-[1.25rem] cursor-pointer border transition-all duration-200"
         :class="{
           'bg-[#27445D] border-transparent':
             sideData.selectedSideBarId === item.id || hoveredIndex === index,
@@ -48,7 +49,6 @@ const selectItem = (item) => {
             sideData.selectedSideBarId !== item.id && hoveredIndex !== index,
         }"
       >
-        <!-- Icon -->
         <client-only>
           <VsxIcon
             iconName="ArchiveBook"
@@ -62,9 +62,8 @@ const selectItem = (item) => {
           />
         </client-only>
 
-        <!-- Text -->
         <span
-          class="transition-colors duration-200"
+          class="sidebar-label transition-colors duration-200"
           :class="
             sideData.selectedSideBarId === item.id || hoveredIndex === index
               ? 'text-white'
@@ -77,3 +76,25 @@ const selectItem = (item) => {
     </ul>
   </aside>
 </template>
+
+<style scoped>
+@media (max-width: 1024px) {
+  .sidebar-container {
+    width: 100%;
+  }
+
+  .sidebar-item {
+    font-size: 0.95rem;
+    padding-inline: 0.75rem;
+    padding-block: 0.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sidebar-item {
+    font-size: 0.9rem;
+    padding-inline: 0.6rem;
+    padding-block: 0.6rem;
+  }
+}
+</style>

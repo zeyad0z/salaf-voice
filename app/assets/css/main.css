@@ -5,11 +5,50 @@
   font-family: "Almarai", sans-serif;
 }
 
+/* ===== Article content (Desktop base: ~1535px) ===== */
 .article-font,
 .article-font * {
   font-family: "Arial", sans-serif !important;
-  font-size: 1.375rem !important;
-  line-height: 2.5 !important;
+  font-size: 1.375rem !important; /* ~22px */
+  line-height: 2.5 !important;    /* Very spacious for desktop reading */
+}
+
+/* ===== Responsive typography for article text ===== */
+
+/* Slightly smaller laptops / 1280px and down */
+@media (max-width: 1280px) {
+  .article-font,
+  .article-font * {
+    font-size: 1.25rem !important;
+    line-height: 2.3 !important;
+  }
+}
+
+/* Tablets / 1024px and down */
+@media (max-width: 1024px) {
+  .article-font,
+  .article-font * {
+    font-size: 1.125rem !important; /* ~18px */
+    line-height: 2.1 !important;
+  }
+}
+
+/* Large phones / small tablets / 768px and down */
+@media (max-width: 768px) {
+  .article-font,
+  .article-font * {
+    font-size: 1.05rem !important; /* ~16–17px */
+    line-height: 1.9 !important;
+  }
+}
+
+/* Small phones / 640px and down */
+@media (max-width: 640px) {
+  .article-font,
+  .article-font * {
+    font-size: 1rem !important;    /* ~16px */
+    line-height: 1.8 !important;
+  }
 }
 
 @layer base {
