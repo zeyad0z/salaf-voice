@@ -8,7 +8,6 @@ const route = useRoute();
 const sideData = useSideBarStore();
 const hoveredIndex = ref(null);
 
-// علشان نقدر نبلّغ البيرنت إن فيه اختيار حصل
 const emit = defineEmits(["itemSelected"]);
 
 const updateSelected = () => {
@@ -26,13 +25,13 @@ watch(
 const selectItem = (item) => {
   sideData.setSelectedSideBar(item);
   router.push(item.route);
-  emit("itemSelected", item); // 🟢 ده اللي البيرنت هيستقبله في الموبايل
+  emit("itemSelected", item);
 };
 </script>
 
 <template>
   <aside
-    class="sidebar-container py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] rounded-[1.25rem] w-full lg:w-[21.5rem] lg:flex-shrink-0"
+    class="sidebar-container py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] rounded-[1.25rem] w-full lg:w-[21.5rem] lg:flex-shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto"
   >
     <ul class="flex flex-col gap-2">
       <li
