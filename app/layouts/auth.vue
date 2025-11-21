@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref } from "vue";
 import LoginDialog from "~/components/auth/loginDialog.vue";
 import SignupDialog from "~/components/auth/signupDialog.vue";
 
@@ -7,7 +7,7 @@ const props = defineProps({
   initialMode: { type: String, default: "login" }, // "login" or "signup"
 });
 
-const emits = defineEmits(["close"]);
+const emit = defineEmits(["close"]);
 
 const mode = ref(props.initialMode);
 
@@ -16,7 +16,7 @@ function switchMode(newMode) {
 }
 
 function closeModal() {
-  emits("close");
+  emit("close");
 }
 </script>
 
@@ -30,7 +30,6 @@ function closeModal() {
     <div
       class="rounded-[30px] bg-white w-[38.85rem] max-w-[95%] my-8 shadow-xl transition-all duration-300 max-h-[95vh] overflow-y-auto"
     >
-      <!-- Inner Layout -->
       <div class="flex flex-col">
         <!-- Close Button -->
         <div class="ps-5 pt-6 pb-2">
@@ -51,7 +50,7 @@ function closeModal() {
             class="bg-[#EFEFEF] rounded-[10px] border border-[#E5E5E5] flex justify-between items-center gap-2 w-[75%] p-2 flex-shrink-0 max-sm:w-[90%]"
           >
             <p
-              class="text-center w-[50%] py-4 text-[1.125rem] cursor-pointer transition-colors max-sm:text-[1rem] max-sm:py-3"
+              class="text-center w-1/2 py-4 text-[1.125rem] cursor-pointer transition-colors max-sm:text-[1rem] max-sm:py-3"
               :class="
                 mode === 'login'
                   ? 'text-[#ffffff] bg-[#497D74] border border-[#E9E9E9] rounded-[10px]'
@@ -63,7 +62,7 @@ function closeModal() {
             </p>
 
             <p
-              class="text-center w-[50%] py-4 text-[1.125rem] cursor-pointer transition-colors max-sm:text-[1rem] max-sm:py-3"
+              class="text-center w-1/2 py-4 text-[1.125rem] cursor-pointer transition-colors max-sm:text-[1rem] max-sm:py-3"
               :class="
                 mode === 'signup'
                   ? 'text-[#ffffff] bg-[#497D74] border border-[#E9E9E9] rounded-[10px]'

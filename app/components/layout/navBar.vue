@@ -2,31 +2,30 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import AuthLayout from "~/layouts/auth.vue";
-
-// نقدر برضه نستورد الأيقونات هنا ونبعتها مباشرة للكومبوننت
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const router = useRouter();
 
 const showAuth = ref(false);
-const authMode = ref("login");
+// ✅ دي كانت المشكلة
+const authMode = ref("login"); // "login" | "signup"
 
-function openLogin() {
+const openLogin = () => {
   authMode.value = "login";
   showAuth.value = true;
-}
+};
 
-function openSignup() {
+const openSignup = () => {
   authMode.value = "signup";
   showAuth.value = true;
-}
+};
 
 const isMobileMenuOpen = ref(false);
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
 
-// الأيقونة الحالية للبورجر (bars / xmark)
+// أيقونة البورجر (قائمة / إغلاق)
 const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
 </script>
 
@@ -34,7 +33,9 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
   <div class="bg-[#EFE9D5] w-full py-1">
     <!-- DESKTOP NAVBAR -->
     <div class="navbar-desktop flex justify-between gap-3 items-center">
+      <!-- Right -->
       <div class="flex justify-center items-center gap-6">
+        <!-- Logo + text -->
         <div class="flex gap-1.5">
           <img
             @click="router.push('/')"
@@ -54,12 +55,13 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
           </div>
         </div>
 
+        <!-- Search -->
         <div
-          class="flex w-[36.8rem] h-[2.7rem] bg-[#FFFFFF] rounded-4xl p-1 items-center"
+          class="flex w-[36.8rem] h-[2.7rem] bg-white rounded-4xl p-1 items-center"
         >
           <div class="relative">
             <select
-              class="w-[7.3rem] h-[2.25rem] bg-[#497D74] hover:bg-[#6B9A8A] rounded-4xl text-[#ffffff] px-3 text-[0.87rem] cursor-pointer appearance-none transition-all duration-200"
+              class="w-[7.3rem] h-[2.25rem] bg-[#497D74] hover:bg-[#6B9A8A] rounded-4xl text-white px-3 text-[0.87rem] cursor-pointer appearance-none transition-all duration-200"
             >
               <option selected>فتاوي</option>
             </select>
@@ -92,6 +94,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
         </div>
       </div>
 
+      <!-- Left -->
       <div class="flex justify-center items-center gap-3.5">
         <button
           class="bg-[#497D74] hover:bg-[#6B9A8A] w-[9.3rem] h-[3.43rem] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
@@ -104,11 +107,11 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
               type="linear"
             />
           </client-only>
-          <p class="text-[0.87rem] text-[#ffffff]">ارسل فتواك</p>
+          <p class="text-[0.87rem] text-white">ارسل فتواك</p>
         </button>
 
         <button
-          class="w-[2.75rem] h-[2.75rem] rounded-full bg-[#ffffff] border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
+          class="w-[2.75rem] h-[2.75rem] rounded-full bg-white border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
         >
           <client-only>
             <VsxIcon
@@ -121,7 +124,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
         </button>
 
         <button
-          class="w-[2.75rem] h-[2.75rem] rounded-full bg-[#ffffff] border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
+          class="w-[2.75rem] h-[2.75rem] rounded-full bg-white border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
         >
           <client-only>
             <VsxIcon
@@ -142,7 +145,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
 
         <button
           @click="openLogin"
-          class="w-[9.37rem] h-[3rem] bg-[#ffffff] hover:bg-[#E5EEE7] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
+          class="w-[9.37rem] h-[3rem] bg-white hover:bg-[#E5EEE7] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
         >
           <client-only>
             <VsxIcon
@@ -159,14 +162,18 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
 
     <!-- MOBILE HEADER -->
     <div class="navbar-mobile items-center py-2">
+      <!-- Burger -->
       <button
-        :class="['burger-btn', { 'burger-btn--open': isMobileMenuOpen }]"
         @click="toggleMobileMenu"
+        :class="[
+          'flex items-center justify-center w-8 h-8 rounded-lg text-[1.1rem] text-white transition-colors duration-200',
+          isMobileMenuOpen ? 'bg-[#6B9A8A]' : 'bg-[#497D74]',
+        ]"
       >
-        <!-- هنا بقى بنبعت الـ icon definition مش string -->
-        <FontAwesomeIcon :icon="burgerIcon" />
+        <font-awesome-icon :icon="burgerIcon" />
       </button>
 
+      <!-- Logo -->
       <div class="flex-1 flex justify-center">
         <img
           @click="router.push('/')"
@@ -176,7 +183,8 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
         />
       </div>
 
-      <div class="w-[2.4rem] h-[3.8rem]"></div>
+      <!-- Spacer -->
+      <div class="w-[2.4rem] h-[3.8rem]" />
     </div>
 
     <!-- MOBILE MENU -->
@@ -186,11 +194,11 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
         class="navbar-mobile-menu flex flex-col mt-2 gap-4 px-4 pb-4"
       >
         <div
-          class="flex w-full h-[2.6rem] bg-[#FFFFFF] rounded-4xl p-1 items-center border border-[#E5EEE7]"
+          class="flex w-full h-[2.6rem] bg-white rounded-4xl p-1 items-center border border-[#E5EEE7]"
         >
           <div class="relative">
             <select
-              class="w-[6.5rem] h-[2.1rem] bg-[#497D74] hover:bg-[#6B9A8A] rounded-4xl text-[#ffffff] px-3 text-[0.8rem] cursor-pointer appearance-none transition-all duration-200"
+              class="w-[6.5rem] h-[2.1rem] bg-[#497D74] hover:bg-[#6B9A8A] rounded-4xl text-white px-3 text-[0.8rem] cursor-pointer appearance-none transition-all duration-200"
             >
               <option selected>فتاوي</option>
             </select>
@@ -229,7 +237,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
 
         <div class="flex items-center gap-3">
           <button
-            class="w-[2.5rem] h-[2.5rem] rounded-full bg-[#ffffff] border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
+            class="w-[2.5rem] h-[2.5rem] rounded-full bg-white border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
           >
             <client-only>
               <VsxIcon
@@ -242,7 +250,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
           </button>
 
           <button
-            class="w-[2.5rem] h-[2.5rem] rounded-full bg-[#ffffff] border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
+            class="w-[2.5rem] h-[2.5rem] rounded-full bg-white border border-[#E5EEE7] flex justify-center items-center cursor-pointer"
           >
             <client-only>
               <VsxIcon
@@ -270,7 +278,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
             openLogin();
             isMobileMenuOpen = false;
           "
-          class="w-full h-[2.9rem] bg-[#ffffff] hover:bg-[#E5EEE7] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
+          class="w-full h-[2.9rem] bg-white hover:bg-[#E5EEE7] border border-[#E5EEE7] rounded-4xl flex justify-center items-center gap-1 cursor-pointer transition-all duration-200"
         >
           <client-only>
             <VsxIcon
@@ -285,6 +293,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
       </div>
     </Transition>
 
+    <!-- Auth Modal -->
     <AuthLayout
       v-if="showAuth"
       :initialMode="authMode"
@@ -302,6 +311,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
   display: none;
 }
 
+/* تصغير تدريجي لنص اللوجو */
 @media (max-width: 1535px) and (min-width: 1401px) {
   .logo-subtitle {
     font-size: 0.84rem;
@@ -327,6 +337,7 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
   }
 }
 
+/* < 1250: نسخة الموبايل */
 @media (max-width: 1250px) {
   .navbar-desktop {
     display: none;
@@ -340,22 +351,6 @@ const burgerIcon = computed(() => (isMobileMenuOpen.value ? faXmark : faBars));
   .navbar-mobile-menu {
     display: flex;
   }
-}
-
-.burger-btn {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  background-color: #497d74;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  border: none;
-}
-.burger-btn--open {
-  background-color: #6b9a8a;
 }
 
 .fade-slide-enter-active,
