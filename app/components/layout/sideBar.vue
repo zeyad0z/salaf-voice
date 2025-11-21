@@ -31,7 +31,7 @@ const selectItem = (item) => {
 
 <template>
   <aside
-    class="sidebar-container py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] rounded-[1.25rem] w-full lg:w-[21.5rem] lg:flex-shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto"
+    class="sidebar-container py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] rounded-[1.25rem] w-full lg:w-[21.5rem] lg:flex-shrink-0"
   >
     <ul class="flex flex-col gap-2">
       <li
@@ -77,9 +77,12 @@ const selectItem = (item) => {
 </template>
 
 <style scoped>
+/* تابلت وما تحتها: خلي الـ sidebar يلتزم بارتفاع الشاشة ويعمل scroll لو طول */
 @media (max-width: 1024px) {
   .sidebar-container {
     width: 100%;
+    max-height: calc(100vh - 6rem); /* ظبّطها لو عايز مسافة أكتر فوق/تحت */
+    overflow-y: auto;
   }
 
   .sidebar-item {
@@ -89,6 +92,7 @@ const selectItem = (item) => {
   }
 }
 
+/* موبايل صغير */
 @media (max-width: 640px) {
   .sidebar-item {
     font-size: 0.9rem;
