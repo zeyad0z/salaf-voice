@@ -6,29 +6,31 @@ import SideBar from "~/components/layout/sideBar.vue";
 import MainHead from "~/components/UI/mainHead.vue";
 
 const isSideOpen = ref(false);
+
 const openSidebar = () => {
   isSideOpen.value = true;
 };
+
 const closeSidebar = () => {
   isSideOpen.value = false;
 };
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#FFFFFF]">
-    <!-- NAVBAR -->
+  <div class="min-h-screen flex flex-col bg-white">
+    <!-- Navbar -->
     <NavBar class="px-4 md:px-6 lg:px-10" />
 
-    <!-- MAIN CONTENT WRAPPER -->
+    <!-- Main wrapper -->
     <div
       class="flex flex-col lg:flex-row justify-center gap-4 lg:gap-5 mt-4 mb-4 mx-3 md:mx-6 lg:mx-10"
     >
-      <!-- DESKTOP SIDEBAR (ثابت على الشاشات الكبيرة) -->
+      <!-- Desktop sidebar -->
       <SideBar class="hidden lg:block lg:w-[21.5rem] lg:flex-shrink-0" />
 
-      <!-- MAIN AREA -->
+      <!-- Main area -->
       <div class="flex-1">
-        <!-- MOBILE SIDEBAR TOGGLE BUTTON (أقصى اليسار وقبل MainHead) -->
+        <!-- Mobile sidebar button -->
         <div class="mb-3 lg:hidden flex justify-start">
           <button
             @click="openSidebar"
@@ -46,15 +48,15 @@ const closeSidebar = () => {
           </button>
         </div>
 
-        <!-- MAIN HEAD -->
+        <!-- Main head -->
         <MainHead class="mb-4" />
 
-        <!-- PAGE CONTENT -->
+        <!-- Page content -->
         <slot />
       </div>
     </div>
 
-    <!-- MOBILE SIDEBAR DRAWER + OVERLAY -->
+    <!-- Mobile sidebar drawer -->
     <Transition name="sidebar">
       <div
         v-if="isSideOpen"
@@ -83,19 +85,19 @@ const closeSidebar = () => {
             </button>
           </div>
 
-          <!-- هنا التعديل الوحيد -->
+          <!-- Sidebar inside drawer -->
           <SideBar @itemSelected="closeSidebar" />
         </div>
       </div>
     </Transition>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <Footer />
   </div>
 </template>
 
 <style scoped>
-/* overlay fade */
+/* Overlay fade */
 .sidebar-enter-active,
 .sidebar-leave-active {
   transition: opacity 0.25s ease;
@@ -106,7 +108,7 @@ const closeSidebar = () => {
   opacity: 0;
 }
 
-/* slide ناعم للبنال نفسه - من الشمال لليمين */
+/* Drawer slide */
 .sidebar-enter-active .sidebar-panel,
 .sidebar-leave-active .sidebar-panel {
   transition: transform 0.3s ease;

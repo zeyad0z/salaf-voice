@@ -15,7 +15,7 @@ const updateSelected = () => {
   if (current) sideData.selectedSideBarId = current.id;
 };
 
-onMounted(() => updateSelected());
+onMounted(updateSelected);
 
 watch(
   () => route.path,
@@ -31,7 +31,7 @@ const selectItem = (item) => {
 
 <template>
   <aside
-    class="sidebar-container py-4 px-2 border border-[#E9E9E9] bg-[#F9F9F9] rounded-[1.25rem] w-full lg:w-[21.5rem] lg:flex-shrink-0"
+    class="sidebar-container w-full lg:w-[21.5rem] lg:flex-shrink-0 rounded-[1.25rem] border border-[#E9E9E9] bg-[#F9F9F9] px-2 py-4 max-h-[calc(100vh-6rem)] overflow-y-auto lg:max-h-none lg:overflow-visible"
   >
     <ul class="flex flex-col gap-2">
       <li
@@ -40,7 +40,7 @@ const selectItem = (item) => {
         @mouseenter="hoveredIndex = index"
         @mouseleave="hoveredIndex = null"
         @click="selectItem(item)"
-        class="sidebar-item flex gap-2 items-center text-[1rem] px-3 py-3.5 rounded-[1.25rem] cursor-pointer border transition-all duration-200"
+        class="sidebar-item flex items-center gap-2 border rounded-[1.25rem] cursor-pointer transition-all duration-200 text-[0.9rem] sm:text-[0.95rem] lg:text-[1rem] px-[0.6rem] py-[0.6rem] sm:px-[0.75rem] sm:py-[0.7rem] lg:px-3 lg:py-3.5"
         :class="{
           'bg-[#27445D] border-transparent':
             sideData.selectedSideBarId === item.id || hoveredIndex === index,
@@ -75,29 +75,3 @@ const selectItem = (item) => {
     </ul>
   </aside>
 </template>
-
-<style scoped>
-/* تابلت وما تحتها: خلي الـ sidebar يلتزم بارتفاع الشاشة ويعمل scroll لو طول */
-@media (max-width: 1024px) {
-  .sidebar-container {
-    width: 100%;
-    max-height: calc(100vh - 6rem); /* ظبّطها لو عايز مسافة أكتر فوق/تحت */
-    overflow-y: auto;
-  }
-
-  .sidebar-item {
-    font-size: 0.95rem;
-    padding-inline: 0.75rem;
-    padding-block: 0.7rem;
-  }
-}
-
-/* موبايل صغير */
-@media (max-width: 640px) {
-  .sidebar-item {
-    font-size: 0.9rem;
-    padding-inline: 0.6rem;
-    padding-block: 0.6rem;
-  }
-}
-</style>

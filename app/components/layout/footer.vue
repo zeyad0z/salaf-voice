@@ -12,82 +12,27 @@ const socials = ref([
 
 <template>
   <footer
-    class="footer w-full bg-[#27445D] flex justify-between items-center px-12 py-6"
+    class="w-full bg-[#27445D] flex flex-col items-center justify-center gap-6 px-5 py-7 text-center lg:flex-row lg:justify-between lg:items-center lg:px-12 lg:py-6 lg:text-right lg:gap-0"
   >
     <!-- Text -->
     <span
-      class="footer-text text-[#ffffff] text-[0.87rem] leading-[1.6] max-w-[60%]"
+      class="text-white leading-[1.6] text-[0.75rem] max-w-full sm:text-[0.85rem] sm:max-w-[90%] lg:text-[0.87rem] lg:max-w-[60%] max-[420px]:text-[0.78rem]"
     >
       حقوق النشر مكفولة لكل مسلم مع ذكر المصدر وحقوق الطبع محفوظة للموقع © 2025
     </span>
 
     <!-- Social Icons -->
-    <div class="footer-icons flex items-center gap-3 me-2">
-      <div
+    <div class="flex items-center gap-2.5 me-2 max-[640px]:gap-[0.8rem]">
+      <button
         v-for="social in socials"
         :key="social.name"
-        class="social-item bg-[#FBFBFB] w-9 h-9 rounded-full flex justify-center items-center cursor-pointer hover:bg-[#497D74] text-[#A2B8CA] hover:text-white transition-all duration-200"
+        type="button"
+        class="flex justify-center items-center rounded-full cursor-pointer bg-[#FBFBFB] text-[#A2B8CA] transition-all duration-200 w-[2.1rem] h-[2.1rem] text-[0.95rem] sm:w-[2.1rem] sm:h-[2.1rem] sm:text-[1rem] lg:w-9 lg:h-9 lg:text-[1.1rem] max-[420px]:w-8 max-[420px]:h-8 hover:bg-[#497D74] hover:text-white"
       >
         <client-only>
-          <FontAwesomeIcon :icon="social.icon" class="text-[1.1rem]" />
+          <FontAwesomeIcon :icon="social.icon" />
         </client-only>
-      </div>
+      </button>
     </div>
   </footer>
 </template>
-
-<style scoped>
-/* Large screens = default */
-
-/* ================= TABLETS (max-width: 1024px) ================= */
-@media (max-width: 1024px) {
-  .footer {
-    padding-inline: 2rem;
-    flex-direction: column;
-    gap: 1.2rem;
-    text-align: center;
-  }
-
-  .footer-text {
-    max-width: 90%;
-    font-size: 0.85rem;
-  }
-}
-
-/* ================= MOBILE (max-width: 640px) ================= */
-@media (max-width: 640px) {
-  .footer {
-    padding-inline: 1.2rem;
-    padding-block: 1.75rem;
-    gap: 1.4rem;
-  }
-
-  .footer-text {
-    font-size: 0.75rem;
-    line-height: 1.6;
-    max-width: 100%;
-  }
-
-  .footer-icons {
-    gap: 0.8rem;
-  }
-
-  .social-item {
-    width: 2.1rem;
-    height: 2.1rem;
-    font-size: 0.95rem;
-  }
-}
-
-/* ================= VERY SMALL MOBILE (max-width: 420px) ================= */
-@media (max-width: 420px) {
-  .footer-text {
-    font-size: 0.78rem;
-  }
-
-  .social-item {
-    width: 2rem;
-    height: 2rem;
-  }
-}
-</style>
