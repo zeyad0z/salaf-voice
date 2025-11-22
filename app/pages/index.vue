@@ -4,7 +4,7 @@ import BigCard from "~/components/UI/bigCard.vue";
 import Card from "~/components/UI/card.vue";
 import BooksCard from "~/components/UI/booksCard.vue";
 
-/* ---------------------- Blogs ---------------------- */
+/* Blogs (جاهزة للاستبدال بـ API لاحقًا) */
 const blogs = ref([
   {
     text: "الدين الإبراهيمي بين الحقيقة والضلال (196) دعوة إبراهيم صلى الله عليه وسلم أباه إلى التوحيد",
@@ -24,7 +24,7 @@ const blogs = ref([
   },
 ]);
 
-/* ---------------------- Books ---------------------- */
+/* Books */
 const books = [
   {
     text: "كونوا على الخير أعواناً",
@@ -44,7 +44,7 @@ const books = [
   },
 ];
 
-/* ---------------------- Reading Library ---------------------- */
+/* Reading Library */
 const readingLibrary = ref([
   "العقيدة",
   "الزهد والرقائق",
@@ -56,6 +56,10 @@ const readingLibrary = ref([
   "الفقه",
   "السير والتاريخ",
 ]);
+
+// مثال جاهز لو حابب تستبدل بـ endpoints:
+// const { data: blogs } = await useFetch('/api/blogs/latest')
+// const { data: books } = await useFetch('/api/books/latest')
 </script>
 
 <template>
@@ -64,12 +68,12 @@ const readingLibrary = ref([
     <div class="home-main flex gap-5">
       <!-- right side -->
       <div class="home-right flex-2 flex flex-col gap-4">
-        <BigCard label="جديد المقالات" viewAll="true">
-          <Card :items="blogs" author="true" />
+        <BigCard label="جديد المقالات" viewAll>
+          <Card :items="blogs" author />
         </BigCard>
 
-        <BigCard label="جديد الفتاوي" viewAll="true">
-          <Card :items="blogs" author="true" />
+        <BigCard label="جديد الفتاوي" viewAll>
+          <Card :items="blogs" author />
         </BigCard>
 
         <BigCard label="ارسال فتوي">
@@ -116,7 +120,7 @@ const readingLibrary = ref([
                   type="linear"
                 />
               </client-only>
-              <p class="text-[0.87rem] text-[#ffffff]">ارسل فتواك</p>
+              <p class="text-[0.87rem] text-white">ارسل فتواك</p>
             </button>
           </form>
         </BigCard>
@@ -124,8 +128,8 @@ const readingLibrary = ref([
 
       <!-- left side -->
       <div class="home-left flex flex-col gap-4">
-        <BigCard label="الكتب" viewAll="true">
-          <BooksCard :items="books" image="true" />
+        <BigCard label="الكتب" viewAll>
+          <BooksCard :items="books" image />
         </BigCard>
 
         <!-- images -->
@@ -142,19 +146,14 @@ const readingLibrary = ref([
           />
         </div>
 
-        <BigCard
-          label="المكتبة المقروءة"
-          blue="true"
-          viewAll="true"
-          class="w-full"
-        >
+        <BigCard label="المكتبة المقروءة" blue viewAll class="w-full">
           <div
             class="reading-grid grid grid-cols-3 grid-rows-3 gap-3 my-3 mx-2"
           >
             <div
               v-for="item in readingLibrary"
               :key="item"
-              class="reading-item bg-[#FFFFFF] border border-[#EDEDED] flex flex-col items-center justify-center rounded-[1.25rem] w-[100px] h-[100px]"
+              class="reading-item bg-white border border-[#EDEDED] flex flex-col items-center justify-center rounded-[1.25rem] w-[100px] h-[100px]"
             >
               <client-only>
                 <VsxIcon
@@ -175,12 +174,10 @@ const readingLibrary = ref([
           <div
             class="newsletter flex flex-col justify-center items-center gap-4 py-14 px-3"
           >
-            <p class="text-[0.87rem] text-[#000000]">
-              اشترك في النشرة البريدية
-            </p>
+            <p class="text-[0.87rem] text-black">اشترك في النشرة البريدية</p>
             <input
               type="text"
-              class="newsletter-input w-full h-[2.5rem] bg-[#FBFBFB] rounded-4xl px-4 border border-[#EDEDED] text-[#000000]"
+              class="newsletter-input w-full h-[2.5rem] bg-[#FBFBFB] rounded-4xl px-4 border border-[#EDEDED] text-black"
               placeholder="ادخل البريد الإلكترونى"
             />
             <button
@@ -204,7 +201,7 @@ const readingLibrary = ref([
 </template>
 
 <style scoped>
-/* أقل من 1280px (لابتوب/تابلت عريض) */
+/* < 1280px */
 @media (max-width: 1280px) {
   .home-main {
     gap: 1rem;
@@ -226,7 +223,7 @@ const readingLibrary = ref([
   }
 }
 
-/* تابلت (<= 1024px) */
+/* <= 1024px */
 @media (max-width: 1024px) {
   .home-main {
     flex-direction: column;
@@ -264,7 +261,7 @@ const readingLibrary = ref([
   }
 }
 
-/* موبايل (<= 640px) */
+/* <= 640px */
 @media (max-width: 640px) {
   .home-wrapper {
     gap: 1.25rem;
@@ -290,7 +287,6 @@ const readingLibrary = ref([
     justify-content: center;
   }
 
-  /* الصور: صف واحد، كل صورة تقريباً نص العرض */
   .home-images {
     flex-direction: row;
     align-items: center;

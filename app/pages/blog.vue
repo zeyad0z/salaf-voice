@@ -1,13 +1,15 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { useCatsStore } from "~/stores/cats";
 import { useSubCatsStore } from "~/stores/subCats";
 import DefaultImage from "~/components/UI/defaultImage.vue";
-import { useRouter } from "vue-router";
 
 const router = useRouter();
 const cats = useCatsStore();
 const subCats = useSubCatsStore();
 
+// لاحقًا تقدر تخليها تجيب المقال من API باستخدام الـ id مثلاً
+// const { data: article } = await useFetch(`/api/fatwas/${route.params.id}`)
 const selectCat = (cat) => {
   cats.setSelectedCat(cat);
   router.push("/blog").then(() => {
@@ -19,7 +21,7 @@ const selectCat = (cat) => {
 <template>
   <div class="blog-page flex flex-col gap-4">
     <!-- breadcrumb -->
-    <div class="breadcrumb w-fit flex justify-center items-center gap-4 ps-3">
+    <div class="breadcrumb w-fit flex items-center gap-4 ps-3">
       <client-only>
         <VsxIcon iconName="Home2" :size="24" color="#497D74" type="linear" />
       </client-only>
@@ -60,8 +62,9 @@ const selectCat = (cat) => {
               type="linear"
             />
           </client-only>
-          <p class="text-[0.87rem] text-[#FFFFFF] font-light">حفظ</p>
+          <p class="text-[0.87rem] text-white font-light">حفظ</p>
         </button>
+
         <button
           class="rounded-[0.5rem] border border-[#E9E9E9] px-5 md:px-6 py-2.5 md:py-3.5 bg-[#229342] hover:bg-[#40a85e] cursor-pointer flex gap-1 justify-center items-center transition-all duration-200"
         >
@@ -73,7 +76,7 @@ const selectCat = (cat) => {
               type="linear"
             />
           </client-only>
-          <p class="text-[0.87rem] text-[#FFFFFF] font-light">تنزيل</p>
+          <p class="text-[0.87rem] text-white font-light">تنزيل</p>
         </button>
       </div>
     </div>
@@ -82,6 +85,7 @@ const selectCat = (cat) => {
     <div
       class="blog-article bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] px-4 md:px-5 py-2 mb-2"
     >
+      <!-- لاحقًا استبدل الـ static HTML ده بمحتوى جاي من الـ API -->
       <span class="article-font">
         <div id="FatwaA" class="row">
           <p class="text-justify"></p>
@@ -584,7 +588,7 @@ const selectCat = (cat) => {
 </template>
 
 <style scoped>
-/* تظبيط بسيط للهيدر على الشاشات الأصغر */
+/* header tweaks */
 @media (max-width: 1024px) {
   .blog-header {
     padding-inline: 1rem;
@@ -600,7 +604,7 @@ const selectCat = (cat) => {
   }
 }
 
-/* محتوى المقال على الموبايل */
+/* article padding on mobile */
 @media (max-width: 640px) {
   .blog-article {
     padding-inline: 0.85rem;
@@ -608,7 +612,7 @@ const selectCat = (cat) => {
   }
 }
 
-/* ريسبونسيف لجزء مواد ذات صلة ليطابق ستايل كروت الـ cats */
+/* related cards responsive */
 @media (max-width: 1024px) {
   .related-card {
     padding-inline: 0.6rem;
@@ -652,20 +656,18 @@ const selectCat = (cat) => {
   }
 }
 
-/* الديفولت — ديسكتوب */
+/* breadcrumb font + one-line behavior */
 .breadcrumb-text {
   font-size: 1rem;
   white-space: nowrap;
 }
 
-/* تابلت */
 @media (max-width: 1024px) {
   .breadcrumb-text {
     font-size: 0.9rem;
   }
 }
 
-/* موبايل كبير */
 @media (max-width: 768px) {
   .breadcrumb {
     gap: 0.35rem;
@@ -680,7 +682,6 @@ const selectCat = (cat) => {
   }
 }
 
-/* موبايل صغير جداً */
 @media (max-width: 480px) {
   .breadcrumb {
     gap: 0.2rem;
@@ -692,12 +693,10 @@ const selectCat = (cat) => {
   }
 
   .breadcrumb-text {
-    font-size: 0.65rem; /* صغير بس واضح ومقروء */
-    white-space: nowrap;
+    font-size: 0.65rem;
   }
 }
 
-/* أصغر شاشات (<360px) */
 @media (max-width: 360px) {
   .breadcrumb-text {
     font-size: 0.58rem;

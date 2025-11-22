@@ -1,14 +1,17 @@
 <script setup>
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import DefaultImage from "~/components/UI/defaultImage.vue";
+import Pagination from "~/components/UI/pagination.vue";
 import { useCatsStore } from "~/stores/cats";
 import { useSubCatsStore } from "~/stores/subCats";
-import { ref, computed } from "vue";
-import Pagination from "~/components/UI/pagination.vue";
 
 const router = useRouter();
 const cats = useCatsStore();
 const subCats = useSubCatsStore();
+
+// لاحقًا: استبدل بيانات cats.cats بنداء API
+// مثال: const { data } = await useFetch('/api/cats', { params: { subCatId: subCats.selectedSubCat?.id } })
 
 const selectCat = (item) => {
   cats.setSelectedCat(item);
@@ -18,14 +21,12 @@ const selectCat = (item) => {
 const currentPage = ref(1);
 const itemsPerPage = 9;
 
-// العناصر الظاهرة في الصفحة الحالية
 const paginatedCats = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   return cats.cats.slice(start, end);
 });
 
-// إجمالي عدد الصفحات
 const totalPages = computed(
   () => Math.ceil((cats.cats?.length || 0) / itemsPerPage) || 1
 );
@@ -34,7 +35,7 @@ const totalPages = computed(
 <template>
   <div class="cats-wrapper flex flex-col gap-4">
     <!-- Breadcrumb -->
-    <div class="w-fit flex justify-center items-center gap-4 ps-3">
+    <div class="w-fit flex items-center gap-4 ps-3">
       <client-only>
         <VsxIcon iconName="Home2" :size="24" color="#497D74" type="linear" />
       </client-only>
@@ -53,7 +54,7 @@ const totalPages = computed(
 
     <!-- Cards Grid -->
     <div
-      class="cats-grid w-full bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] p-4 grid grid-cols-3 gap-x-5 gap-y-4"
+      class="cats-grid w-full bg-[#F9F9F9] border border-[#E9E9E9] rounded-[1.25rem] p-4 grid grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-4"
     >
       <button
         v-for="item in paginatedCats"
@@ -128,18 +129,13 @@ const totalPages = computed(
 
     <!-- Pagination -->
     <div class="flex justify-center mt-2 mb-1">
-      <Pagination v-model="currentPage" :total-pages="totalPages" />
+      <Pagination v-model="currentPage" :totalPages="totalPages" />
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Desktop 3 columns */
-.cats-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-/* لابتوب صغير / تابلت كبير */
+/* لابتوب أصغر / تابلت كبير */
 @media (max-width: 1280px) {
   .cats-grid {
     gap: 1rem 1.25rem;
@@ -154,10 +150,9 @@ const totalPages = computed(
   }
 }
 
-/* تابلت (<= 1024px): خليها عمودين */
+/* تابلت (<= 1024px) */
 @media (max-width: 1024px) {
   .cats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 1rem;
     gap: 1rem;
   }
@@ -175,10 +170,9 @@ const totalPages = computed(
   }
 }
 
-/* موبايل (<= 640px): بردو عمودين */
+/* موبايل (<= 640px) */
 @media (max-width: 640px) {
   .cats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.85rem;
     padding: 0.9rem;
   }
@@ -201,14 +195,14 @@ const totalPages = computed(
   }
 }
 
-/* شاشات صغيرة جداً (<= 400px): نخليها 1 علشان ما تتكسرش */
+/* شاشات صغيرة جداً (<= 400px): نخليها عمود واحد */
 @media (max-width: 400px) {
   .cats-grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 
-/* Desktop default */
+/* breadcrumb text */
 .cats-breadcrumb {
   white-space: nowrap;
   gap: 0.5rem;
@@ -219,40 +213,33 @@ const totalPages = computed(
   white-space: nowrap;
 }
 
-/* Tablet */
 @media (max-width: 1024px) {
   .cats-breadcrumb {
     gap: 0.4rem;
   }
-
   .crumb-text {
     font-size: 0.9rem;
   }
 }
 
-/* Large mobile */
 @media (max-width: 768px) {
   .cats-breadcrumb {
     gap: 0.3rem;
   }
-
   .crumb-text {
     font-size: 0.8rem;
   }
 }
 
-/* Small mobile */
 @media (max-width: 480px) {
   .cats-breadcrumb {
     gap: 0.2rem;
   }
-
   .crumb-text {
     font-size: 0.7rem;
   }
 }
 
-/* Very small (≤360px) */
 @media (max-width: 360px) {
   .crumb-text {
     font-size: 0.62rem;
