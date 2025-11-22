@@ -6,7 +6,7 @@ const props = defineProps({
   },
   image: {
     type: Boolean,
-    default: false, // موجود لو حبيت تستخدمه بعدين
+    default: false,
   },
 });
 </script>
@@ -15,21 +15,21 @@ const props = defineProps({
   <div
     v-for="(item, index) in items"
     :key="index"
-    class="book-card bg-[#ffffff] border border-[#EDEDED] rounded-[1.25rem] px-2 pt-2 pb-1.25 mx-2 my-3 flex gap-3"
+    class="book-card bg-white border border-[#EDEDED] rounded-[1.25rem] px-2 pt-2 pb-1.25 mx-2 my-3 flex gap-3"
   >
     <img
       :src="item.img"
-      alt="book image"
+      alt="book"
       class="book-card-img w-12 h-16 object-cover rounded-md"
     />
 
     <div class="book-card-body flex flex-col gap-2">
-      <div class="book-card-text font-bold text-[0.96rem] text-[#133349]">
+      <p class="book-card-text font-bold text-[0.96rem] text-[#133349]">
         {{ item.text }}
-      </div>
+      </p>
 
       <div class="book-card-actions flex items-center gap-6 ms-1.5">
-        <button class="flex justify-center items-center gap-1 cursor-pointer">
+        <button class="flex items-center gap-1 cursor-pointer">
           <VsxIcon
             iconName="ArchiveAdd"
             :size="16"
@@ -41,13 +41,8 @@ const props = defineProps({
           </span>
         </button>
 
-        <button class="flex justify-center items-center gap-1 cursor-pointer">
-          <VsxIcon
-            iconName="Share"
-            :size="18"
-            color="#133349"
-            type="linear"
-          />
+        <button class="flex items-center gap-1 cursor-pointer">
+          <VsxIcon iconName="Share" :size="18" color="#133349" type="linear" />
           <span class="book-card-btn-text text-[0.8rem] text-[#133349]">
             مشاركة
           </span>
@@ -58,7 +53,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-/* تابلت / لابتوب صغير */
+/* ============== Tablet (<=1024px) ============== */
 @media (max-width: 1024px) {
   .book-card {
     margin-inline: 0.4rem;
@@ -82,7 +77,7 @@ const props = defineProps({
   }
 }
 
-/* موبايل */
+/* ============== Mobile (<=640px) ============== */
 @media (max-width: 640px) {
   .book-card {
     margin-inline: 0.3rem;
@@ -102,7 +97,7 @@ const props = defineProps({
   }
 
   .book-card-actions {
-    gap: 0.4rem; /* تقريبًا زي gap-1 */
+    gap: 0.4rem; /* يعادل gap-1 */
   }
 
   .book-card-btn-text {

@@ -29,11 +29,11 @@ const pages = computed(() => {
 
 <template>
   <div
-    class="pagination flex items-center gap-2 py-3 px-10 rounded-2xl select-none bg-[#EFEFEF]"
+    class="flex items-center gap-2 py-3 px-10 rounded-2xl select-none bg-[#EFEFEF] md:px-6 md:py-2.5 md:gap-2 sm:px-3 sm:py-2 sm:gap-1.5 sm:flex-wrap sm:justify-center"
   >
     <!-- Prev -->
     <button
-      class="nav-btn px-4 py-1 rounded-lg border border-[#497D74] bg-white text-[#497D74] hover:bg-[#E5EEE7] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-default"
+      class="px-4 py-1 rounded-lg border border-[#497D74] bg-white text-[#497D74] hover:bg-[#E5EEE7] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-default md:px-3 md:text-[0.85rem] sm:px-2 sm:text-[0.8rem] sm:min-w-[2.2rem]"
       :disabled="modelValue === 1"
       @click="goTo(modelValue - 1)"
     >
@@ -45,7 +45,7 @@ const pages = computed(() => {
       v-for="p in pages"
       :key="p"
       @click="goTo(p)"
-      class="page-btn px-4 py-1 rounded-lg border cursor-pointer transition-all duration-200"
+      class="px-4 py-1 rounded-lg border cursor-pointer transition-all duration-200 md:px-3 md:text-[0.85rem] sm:px-2 sm:text-[0.8rem] sm:min-w-[2.2rem]"
       :class="
         p === modelValue
           ? 'bg-[#497D74] text-white border border-[#E5EEE7]'
@@ -57,7 +57,7 @@ const pages = computed(() => {
 
     <!-- Next -->
     <button
-      class="nav-btn px-5 py-1 rounded-lg border border-[#497D74] bg-white text-[#497D74] hover:bg-[#E5EEE7] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-default"
+      class="px-5 py-1 rounded-lg border border-[#497D74] bg-white text-[#497D74] hover:bg-[#E5EEE7] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-default md:px-4 md:text-[0.85rem] sm:px-2 sm:text-[0.8rem] sm:min-w-[2.2rem]"
       :disabled="modelValue === totalPages"
       @click="goTo(modelValue + 1)"
     >
@@ -65,40 +65,3 @@ const pages = computed(() => {
     </button>
   </div>
 </template>
-
-<style scoped>
-/* Tablet */
-@media (max-width: 1024px) {
-  .pagination {
-    padding-inline: 1.5rem;
-    padding-block: 0.6rem;
-    gap: 0.5rem;
-  }
-
-  .page-btn,
-  .nav-btn {
-    padding-inline: 0.75rem;
-    padding-block: 0.25rem;
-    font-size: 0.85rem;
-  }
-}
-
-/* Mobile */
-@media (max-width: 640px) {
-  .pagination {
-    padding-inline: 0.75rem;
-    padding-block: 0.5rem;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .page-btn,
-  .nav-btn {
-    padding-inline: 0.5rem;
-    padding-block: 0.25rem;
-    font-size: 0.8rem;
-    min-width: 2.2rem;
-  }
-}
-</style>

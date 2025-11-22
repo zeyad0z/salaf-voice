@@ -8,7 +8,7 @@
     <img
       src="/images/logo-gray.png"
       alt="default-image"
-      class="logo w-[4.3rem] h-[7.37rem]"
+      class="logo w-[4.3rem] h-[7.37rem] md:w-[4.3rem] md:h-[7.37rem]"
     />
 
     <!-- Text -->
@@ -18,7 +18,7 @@
 </template>
 
 <style scoped>
-/* موبايل فقط */
+/* Mobile only */
 @media (max-width: 640px) {
   .logo {
     width: 3.5rem;

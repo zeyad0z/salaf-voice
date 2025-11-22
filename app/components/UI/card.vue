@@ -9,15 +9,18 @@ const props = defineProps({
   <div
     v-for="(item, index) in items"
     :key="index"
-    class="card bg-[#ffffff] border border-[#EDEDED] rounded-[1.25rem] px-2 pt-4 pb-2 mx-2 my-3 flex flex-col gap-2"
+    class="card bg-white border border-[#EDEDED] rounded-[1.25rem] px-2 pt-4 pb-2 mx-2 my-3 flex flex-col gap-2"
   >
-    <div class="card-text font-bold text-[0.96rem] text-[#133349]">
+    <!-- TEXT -->
+    <p class="card-text font-bold text-[0.96rem] text-[#133349]">
       {{ item.text }}
-    </div>
+    </p>
 
+    <!-- FOOTER -->
     <div class="card-footer flex justify-between items-center">
-      <div class="card-actions flex justify-center items-center gap-6 ms-1.5">
-        <button class="flex justify-center items-center gap-1 cursor-pointer">
+      <div class="card-actions flex items-center gap-6 ms-1.5">
+        <!-- Save -->
+        <button class="flex items-center gap-1 cursor-pointer">
           <VsxIcon
             iconName="ArchiveAdd"
             :size="16"
@@ -27,25 +30,26 @@ const props = defineProps({
           <span class="card-btn-text text-[0.87rem] text-[#133349]">حفظ</span>
         </button>
 
-        <button class="flex justify-center items-center gap-1 cursor-pointer">
+        <!-- Share -->
+        <button class="flex items-center gap-1 cursor-pointer">
           <VsxIcon iconName="Share" :size="18" color="#133349" type="linear" />
-          <span class="card-btn-text text-[0.8rem] text-[#133349]">
-            مشاركة
-          </span>
+          <span class="card-btn-text text-[0.8rem] text-[#133349]">مشاركة</span>
         </button>
       </div>
 
+      <!-- AUTHOR -->
       <div
         v-if="author"
-        class="card-author bg-[#FBFBFB] rounded-3xl border border-[#EDEDED] text-[0.81rem] text-[#133349] px-6.5 py-1"
+        class="card-author bg-[#FBFBFB] border border-[#EDEDED] rounded-3xl text-[0.81rem] text-[#133349] px-6.5 py-1"
       >
-        {{ item.author ?? "unkown author" }}
+        {{ item.author ?? "unknown author" }}
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+/* =============== TABLET (<=1024px) =============== */
 @media (max-width: 1024px) {
   .card {
     margin-inline: 0.4rem;
@@ -70,6 +74,7 @@ const props = defineProps({
   }
 }
 
+/* =============== MOBILE (<=640px) =============== */
 @media (max-width: 640px) {
   .card {
     margin-inline: 0.3rem;
@@ -83,7 +88,7 @@ const props = defineProps({
   }
 
   .card-actions {
-    gap: 0.25rem;
+    gap: 0.25rem; /* يعادل gap-1 */
   }
 
   .card-btn-text {

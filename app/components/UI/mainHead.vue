@@ -23,9 +23,10 @@ const prevItem = () => {
 
 <template>
   <div
-    class="main-head border border-[#E9E9E9] flex justify-between bg-[#F9F9F9] py-5 px-4 rounded-[1.25rem]"
+    class="main-head border border-[#E9E9E9] flex justify-between items-center bg-[#F9F9F9] py-5 px-4 rounded-[1.25rem]"
   >
-    <div class="flex justify-center items-center gap-4">
+    <!-- Title Row -->
+    <div class="flex items-center gap-4">
       <client-only>
         <VsxIcon
           iconName="ArchiveBook"
@@ -47,26 +48,24 @@ const prevItem = () => {
     </div>
 
     <!-- ARROWS -->
-    <div class="arrows-col flex flex-col gap-1 me-2">
-      <button class="arrow-btn transition-all duration-200" @click="nextItem">
+    <div class="flex flex-col gap-1 me-2">
+      <button class="arrow-btn" @click="nextItem">
         <client-only>
           <VsxIcon
             iconName="ArrowSquareUp"
             :size="22"
             type="linear"
-            :style="{ color: 'var(--icon-color)' }"
             class="arrow-icon"
           />
         </client-only>
       </button>
 
-      <button class="arrow-btn transition-all duration-200" @click="prevItem">
+      <button class="arrow-btn" @click="prevItem">
         <client-only>
           <VsxIcon
             iconName="ArrowSquareDown"
             :size="22"
             type="linear"
-            :style="{ color: 'var(--icon-color)' }"
             class="arrow-icon"
           />
         </client-only>
@@ -76,11 +75,11 @@ const prevItem = () => {
 </template>
 
 <style scoped>
+/* ============ ARROW BUTTON ============ */
 .arrow-btn {
   padding: 0;
   margin: 0;
   border: none;
-  outline: none;
   background: transparent;
   width: fit-content;
   height: fit-content;
@@ -89,13 +88,15 @@ const prevItem = () => {
   justify-content: center;
   --icon-color: #133349;
 }
-
 .arrow-btn:hover {
   background-color: #133349 !important;
   border-radius: 6px;
-  --icon-color: #ffffff;
+}
+.arrow-btn:hover .arrow-icon {
+  color: #ffffff !important;
 }
 
+/* ============ SLIDE ANIMATION ============ */
 .slide-vertical-enter-active,
 .slide-vertical-leave-active {
   transition: all 0.25s ease;
@@ -109,7 +110,7 @@ const prevItem = () => {
   transform: translateY(-8px);
 }
 
-/* ==================  لابتوب / تابلت (max-width: 1024px) ================== */
+/* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
   .main-head {
     padding-inline: 1rem;
@@ -129,7 +130,6 @@ const prevItem = () => {
   }
 }
 
-/* ==================  موبايل (max-width: 640px) ================== */
 @media (max-width: 640px) {
   .main-head {
     padding-inline: 0.9rem;
@@ -143,10 +143,6 @@ const prevItem = () => {
 
   .header-icon :deep(svg) {
     transform: scale(0.85);
-  }
-
-  .arrows-col {
-    gap: 0.4rem;
   }
 
   .arrow-icon :deep(svg) {
