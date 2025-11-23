@@ -37,14 +37,26 @@ const totalPages = computed(
     <!-- Breadcrumb -->
     <div class="w-fit flex items-center gap-4 ps-3">
       <client-only>
-        <VsxIcon iconName="Home2" :size="24" color="#497D74" type="linear" />
+        <VsxIcon
+          iconName="Home2"
+          :size="24"
+          color="#497D74"
+          type="linear"
+          class="cursor-pointer"
+          @click="$router.push('/')"
+        />
       </client-only>
 
       <div
         class="cats-breadcrumb flex gap-2 justify-center items-center text-[1rem]"
       >
         <p class="crumb-text text-[#B8C2CA]">»</p>
-        <p class="crumb-text text-[#B8C2CA]">الفتاوي</p>
+        <p
+          class="crumb-text text-[#B8C2CA] cursor-pointer"
+          @click="$router.push('/subCats')"
+        >
+          الفتاوي
+        </p>
         <p class="crumb-text text-[#497D74]">»</p>
         <p class="crumb-text text-[#497D74]">
           {{ subCats.selectedSubCat?.label }}

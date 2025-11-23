@@ -23,16 +23,31 @@ const selectCat = (cat) => {
     <!-- breadcrumb -->
     <div class="breadcrumb w-fit flex items-center gap-4 ps-3">
       <client-only>
-        <VsxIcon iconName="Home2" :size="24" color="#497D74" type="linear" />
+        <VsxIcon
+          iconName="Home2"
+          :size="24"
+          color="#497D74"
+          type="linear"
+          class="cursor-pointer"
+          @click="$router.push('/')"
+        />
       </client-only>
 
       <div
-        class="breadcrumb-path flex flex-wrap gap-2 justify-center items-center"
+        class="breadcrumb-path flex flex-nowrap gap-2 justify-center items-center overflow-x-auto max-w-full"
       >
         <p class="breadcrumb-text text-[#B8C2CA]">»</p>
-        <p class="breadcrumb-text text-[#B8C2CA]">الفتاوي</p>
+        <p
+          class="breadcrumb-text text-[#B8C2CA] cursor-pointer"
+          @click="$router.push('/subCats')"
+        >
+          الفتاوي
+        </p>
         <p class="breadcrumb-text text-[#B8C2CA]">»</p>
-        <p class="breadcrumb-text text-[#B8C2CA]">
+        <p
+          class="breadcrumb-text text-[#B8C2CA] cursor-pointer"
+          @click="$router.push('/cats')"
+        >
           {{ subCats.selectedSubCat?.label }}
         </p>
         <p class="breadcrumb-text text-[#497D74]">»</p>
@@ -662,6 +677,12 @@ const selectCat = (cat) => {
   white-space: nowrap;
 }
 
+/* نضمن إن الكونتينر نفسه ما يلفش العناصر */
+.breadcrumb-path {
+  flex-wrap: nowrap;
+}
+
+/* تصغير تدريجي على الشاشات الأصغر */
 @media (max-width: 1024px) {
   .breadcrumb-text {
     font-size: 0.9rem;

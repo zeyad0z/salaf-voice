@@ -18,7 +18,7 @@ const selectSub = (item) => {
     <!-- Breadcrumb -->
     <div class="breadcrumb flex items-center gap-3 ps-3 overflow-hidden">
       <client-only>
-        <VsxIcon iconName="Home2" :size="20" color="#497D74" type="linear" />
+        <VsxIcon iconName="Home2" :size="20" color="#497D74" type="linear" class="cursor-pointer" @click="$router.push('/')"/>
       </client-only>
 
       <div
